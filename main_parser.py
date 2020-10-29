@@ -21,9 +21,10 @@ log_file = open(original_log_path, "r")
 row_counter = 1
 
 first_row = log_file.readline()
+log_file.seek(0)
+
 started_time = datetime.strptime(first_row.split()[4] + " " + first_row.split()[5], "%m/%d/%y %H:%M:%S")
 
-print(started_time)
 
 with open(SWF_log, "w") as swf_file:
     for row in log_file.readlines():
@@ -49,7 +50,7 @@ with open(SWF_log, "w") as swf_file:
 
         number_of_queues = 1
 
-        current_row = RowClass(date_and_time, row_counter, submit_time, runtime, number_of_nodes, user_id, group_id,
+        current_row = RowClass(date_and_time, row_counter, submit_time.seconds, runtime, number_of_nodes, user_id, group_id,
                                application_id, number_of_queues)
 
         swf_file.write(current_row.convert_to_string())
