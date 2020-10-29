@@ -24,9 +24,9 @@ class RowClass:
         self.datetime = datetime
 
     def convert_to_string(self):
-        return "{:5s}  {:8s}  {:2s}  {:8s}  {:8s}  {:8s}  {:2s}  {:2s}  {:2s}  {:2s}  {:2s}  {:10s}  {:8s}  {:8s}  {:2s}  {:2s}  {:2s}  {:2s}\n".format(
+        return "{:5s}  {:8s}  {:2s}  {:8s}  {:8s}  {:8s}  {:2s}  {:2s}  {:2s}  {:2s}  {:2s}  {:10s}  {:8s}  {:8s}  {:2s}  {:2s}  {:2s}  {:2s}      {:20}\n".format(
             str(self.order), str(self.submit_time), str(self.wait_time), str(self.runtime), str(self.number_of_nodes),
             str(self.average_cpu_time), str(self.average_memory_per_node), str(self.requested_processors),
             str(self.requested_runtime), str(self.requested_memory), str(self.status), str(self.user_id),
             str(self.group_id), str(self.application_id), str(self.number_of_queues), str(self.number_of_partitions),
-            str(self.preceding_job_number), str(self.think_time))
+            str(self.preceding_job_number), str(self.think_time), str(self.datetime))
