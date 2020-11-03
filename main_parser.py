@@ -43,19 +43,27 @@ with open(SWF_log, "w") as swf_file:  # for each row in the trace - create file 
                                                                                               started_time.time())  # subtract current time from start time to get time from beginning
         runtime = row_split_list[3]
 
-        number_of_nodes = row_split_list[2]
-
-        user_name = row_split_list[0]  # manage the users dictionary
+        # manage the users dictionary
+        user_name = row_split_list[0]
         user_id = users_dict.get(user_name, -1)
-        if user_id == -1:
+        if user_id == -1:  # new user
             users_dict[user_name] = [users_id_counter, 1]
             user_id = users_id_counter
             users_id_counter += 1
-        else:
+        else:  # if user already shown
             new_user_occurrences_array = users_dict.get(user_name)
             users_dict[user_name] = [new_user_occurrences_array[0], new_user_occurrences_array[1] + 1]
 
-        if (str.__contains__(user_name, "user")):  # set group
+        # manage the job size dictionary
+        number_of_nodes = row_split_list[2]
+        # if number_of_nodes != "S" or number_of_nodes != "D" or number_of_nodes != "H":  # ignore special keys in log -> 'CUBE' application
+        number_of_nodes_key = job_size_dict.get(number_of_nodes, -1)
+        if number_of_nodes_key == -1:  # new job size
+            job_size_dict[number_of_nodes] = 1
+        else:
+            job_size_dict[number_of_nodes] = int(str(job_size_dict.get(number_of_nodes))) + 1
+
+        if str.__contains__(user_name, "user"):  # set group
             group_id = 1
         else:  # sysadmin
             group_id = 2
@@ -64,9 +72,9 @@ with open(SWF_log, "w") as swf_file:  # for each row in the trace - create file 
 
         number_of_queues = 1
 
-        current_row = RowClass(date_and_time, row_counter, submit_time.seconds, runtime, number_of_nodes, user_id,
-                               group_id,
-                               application_id, number_of_queues)
+        current_row = RowClass(date_and_time, row_counter, submit_time.seconds, runtime, number_of_nodes,
+                               users_dict[user_name][0],
+                               group_id, application_id, number_of_queues)
 
         swf_file.write(current_row.convert_to_string())
 
@@ -75,3 +83,9 @@ with open(SWF_log, "w") as swf_file:  # for each row in the trace - create file 
 with open(SWF_log_analyse, "w") as SWF_log_analyse:  # create file with analysis
     SWF_log_analyse.write("# 'user_name', [user_id, number of times user shown] \n\n")
     SWF_log_analyse.write(json.dumps(users_dict, indent=4))
+
+    SWF_log_analyse.write("\n\n\n\n# Number of nodes in job, number of times \n\n")
+    SWF_log_analyse.write(json.dumps(job_size_dict, indent=4))
+
+plot_data.plot_users_dict(users_dict)
+plot_data.plot_jobs_dict(job_size_dict)

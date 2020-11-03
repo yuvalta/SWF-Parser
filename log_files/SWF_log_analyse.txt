@@ -1,6 +1,4 @@
-# 'user_name', [user_id, number of times user showed]
-
-
+# 'user_name', [user_id, number of times user shown] 
 
 {
     "user0": [
@@ -283,4 +281,25 @@
         70,
         26
     ]
+}
+
+
+
+# Number of nodes in job, number of times 
+
+{
+    "128": 420,
+    "1": 28960,
+    "0": 1537,
+    "32": 3662,
+    "2": 1763,
+    "4": 2683,
+    "16": 1780,
+    "8": 1793,
+    "H": 7,
+    "64": 1203,
+    "S": 69,
+    "D": 31,
+    "O": 1,
+    "M": 1
 }
