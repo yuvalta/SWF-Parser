@@ -1,4 +1,5 @@
-from shutil import copyfile, copy
+import json
+import plot_data
 import os
 from datetime import datetime, date
 from RowClass import RowClass
@@ -10,11 +11,13 @@ from RowClass import RowClass
 
 original_log_path = "log_files/NASA-iPSC-1993-0.txt"
 SWF_log = "log_files/SWF_log.txt"
+SWF_log_analyse = "log_files/SWF_log_analyse.txt"
 
 if os.path.isfile(SWF_log):  # delete SWF file if already exists
     os.remove(SWF_log)
 
-# copyfile(original_log_path, SWF_log)
+if os.path.isfile(SWF_log_analyse):  # delete SWF analyse file if already exists
+    os.remove(SWF_log_analyse)
 
 log_file = open(original_log_path, "r")
 
@@ -25,8 +28,11 @@ log_file.seek(0)
 
 started_time = datetime.strptime(first_row.split()[4] + " " + first_row.split()[5], "%m/%d/%y %H:%M:%S")
 
+job_size_dict = {}  # dictionary for job sizes
+users_dict = {}  # dictionary for all users ('user_name', [user_id, number of times user shown])
+users_id_counter = 1
 
-with open(SWF_log, "w") as swf_file:
+with open(SWF_log, "w") as swf_file:  # for each row in the trace - create file with the formatted log
     for row in log_file.readlines():
 
         row_split_list = row.split()
@@ -39,9 +45,17 @@ with open(SWF_log, "w") as swf_file:
 
         number_of_nodes = row_split_list[2]
 
-        user_id = row_split_list[0]
+        user_name = row_split_list[0]  # manage the users dictionary
+        user_id = users_dict.get(user_name, -1)
+        if user_id == -1:
+            users_dict[user_name] = [users_id_counter, 1]
+            user_id = users_id_counter
+            users_id_counter += 1
+        else:
+            new_user_occurrences_array = users_dict.get(user_name)
+            users_dict[user_name] = [new_user_occurrences_array[0], new_user_occurrences_array[1] + 1]
 
-        if (str.__contains__(user_id, "user")):
+        if (str.__contains__(user_name, "user")):  # set group
             group_id = 1
         else:  # sysadmin
             group_id = 2
@@ -50,9 +64,14 @@ with open(SWF_log, "w") as swf_file:
 
         number_of_queues = 1
 
-        current_row = RowClass(date_and_time, row_counter, submit_time.seconds, runtime, number_of_nodes, user_id, group_id,
+        current_row = RowClass(date_and_time, row_counter, submit_time.seconds, runtime, number_of_nodes, user_id,
+                               group_id,
                                application_id, number_of_queues)
 
         swf_file.write(current_row.convert_to_string())
 
         row_counter += 1
+
+with open(SWF_log_analyse, "w") as SWF_log_analyse:  # create file with analysis
+    SWF_log_analyse.write("# 'user_name', [user_id, number of times user shown] \n\n")
+    SWF_log_analyse.write(json.dumps(users_dict, indent=4))

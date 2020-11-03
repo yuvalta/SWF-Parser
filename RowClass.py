@@ -1,6 +1,6 @@
 class RowClass:
     def __init__(self, datetime, order, submit_time, runtime, number_of_nodes, user_id, group_id,
-                 application_id, number_of_queues, wait_time=0, average_cpu_time=-1, average_memory_per_node=-1,
+                 application_id, number_of_queues, wait_time=-1, average_cpu_time=-1, average_memory_per_node=-1,
                  requested_processors=-1, requested_runtime=-1, requested_memory=-1, status=-1, number_of_partitions=-1,
                  preceding_job_number=-1, think_time=-1):
         self.order = order
