@@ -1,0 +1,7 @@
+Should the lines between 156 to 182 in the original file be deleted or not?
+
+How to handle some fields in the SWF fields? comments in the code
+
+explaination about the lines 156-182...
+
+ 

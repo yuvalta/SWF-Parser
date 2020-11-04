@@ -53,7 +53,7 @@ with open(SWF_log, "w") as swf_file:
         Status=1
         UserID=list(UserDict.keys()).index(row_split_list[4]) #get the index of the user from the keys of the users dictionary
         GroupID=-1
-        #Executable=list(ApplicationsDict.keys()).index(row_split_list[3]) #TODO:create a dictionary for each reqest type (e.g "MATLAB"...) 
+        #Executable=list(ApplicationsDict.keys()).index(row_split_list[3]) #TODO:create a dictionary for each request type (e.g "MATLAB"...) 
         Queue=-1
         Partition=-1
         ThinkTime=-1
