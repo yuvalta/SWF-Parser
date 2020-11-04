@@ -1,0 +1,463 @@
+10:55:26 (lmgrd) -----------------------------------------------
+10:55:26 (lmgrd)   Please Note:
+10:55:26 (lmgrd) 
+10:55:26 (lmgrd)   This log is intended for debug purposes only.
+10:55:26 (lmgrd)   In order to capture accurate license
+10:55:26 (lmgrd)   usage data into an organized repository,
+10:55:26 (lmgrd)   please enable report logging. Use Flexera's
+10:55:26 (lmgrd)   software license administration  solution,
+10:55:26 (lmgrd)   FlexNet Manager, to  readily gain visibility
+10:55:26 (lmgrd)   into license usage data and to create
+10:55:26 (lmgrd)   insightful reports on critical information like
+10:55:26 (lmgrd)   license availability and usage. FlexNet Manager
+10:55:26 (lmgrd)   can be fully automated to run these reports on
+10:55:26 (lmgrd)   schedule and can be used to track license
+10:55:26 (lmgrd)   servers and usage across a heterogeneous
+10:55:26 (lmgrd)   network of servers including Windows NT, Linux
+10:55:26 (lmgrd)   and UNIX.
+10:55:26 (lmgrd) 
+10:55:26 (lmgrd) -----------------------------------------------
+10:55:26 (lmgrd) 
+10:55:26 (lmgrd) 
+10:55:26 (lmgrd) Server's System Date and Time: Tue Sep 29 2020 10:55:26 Jerusalem Daylight Time
+10:55:26 (lmgrd) pid 11508
+10:55:26 (lmgrd) SLOG: Summary LOG statistics is enabled.
+10:55:26 (lmgrd) Done rereading
+10:55:26 (lmgrd) FlexNet Licensing (v11.16.2.1 build 245043 x64_n6) started on license_server_name (IBM PC) (9/29/2020)
+10:55:26 (lmgrd) Copyright (c) 1988-2018 Flexera. All Rights Reserved.
+10:55:26 (lmgrd) World Wide Web:  http://www.flexerasoftware.com
+10:55:26 (lmgrd) License file(s): C:\Matlab_license_path\network.lic
+10:55:26 (lmgrd) lmgrd tcp-port 1711
+10:55:26 (lmgrd) (@lmgrd-SLOG@) ===============================================
+10:55:26 (lmgrd) (@lmgrd-SLOG@) === LMGRD ===
+10:55:26 (lmgrd) (@lmgrd-SLOG@) Start-Date: Tue Sep 29 2020 10:55:26 Jerusalem Daylight Time
+10:55:26 (lmgrd) (@lmgrd-SLOG@) PID: 11508
+10:55:26 (lmgrd) (@lmgrd-SLOG@) LMGRD Version: v11.16.2.1 build 245043 x64_n6 ( build 245043 (ipv6))
+10:55:26 (lmgrd) (@lmgrd-SLOG@) 
+10:55:26 (lmgrd) (@lmgrd-SLOG@) === Network Info ===
+10:55:26 (lmgrd) (@lmgrd-SLOG@) Listening port: 1711
+10:55:26 (lmgrd) (@lmgrd-SLOG@) 
+10:55:26 (lmgrd) (@lmgrd-SLOG@) === Startup Info ===
+10:55:26 (lmgrd) (@lmgrd-SLOG@) Is LS run as a service: Yes
+10:55:26 (lmgrd) (@lmgrd-SLOG@) Server Configuration: Single Server
+10:55:26 (lmgrd) (@lmgrd-SLOG@) Command-line options used at LS startup: -c C:\Matlab_license_path\network.lic -l C:\Matlab_license_path\network.log -z -s 
+10:55:26 (lmgrd) (@lmgrd-SLOG@) License file(s) used:  C:\Matlab_license_path\network.lic
+10:55:26 (lmgrd) (@lmgrd-SLOG@) ===============================================
+10:55:26 (lmgrd) SLOG: FNPLS-INTERNAL-VL1-4096
+10:55:26 (lmgrd) Starting vendor daemons ... 
+10:55:26 (lmgrd) Starting vendor daemon at port 1712
+10:55:26 (lmgrd) Using vendor daemon port 1712 specified in license file
+10:55:26 (lmgrd) Started MLM (pid 13028)
+10:55:26 (MLM) FlexNet Licensing version v11.16.2.1 build 245043 x64_n6
+10:55:26 (MLM) SLOG: Summary LOG statistics is enabled.
+10:55:26 (MLM) SLOG: FNPLS-INTERNAL-CKPT1
+10:55:26 (MLM) SLOG: VM Status: 4
+10:55:26 (MLM) SLOG: FNPLS-INTERNAL-CKPT5
+10:55:26 (MLM) SLOG: TPM Status: 0
+10:55:26 (MLM) SLOG: FNPLS-INTERNAL-CKPT6
+10:55:27 (MLM) Server started on license_server_name for:	MATLAB		
+10:55:27 (MLM) SIMULINK	MATLAB_5G_Toolbox AUTOSAR_Blockset 
+10:55:27 (MLM) Aerospace_Blockset Aerospace_Toolbox Antenna_Toolbox 
+10:55:27 (MLM) Audio_System_Toolbox Automated_Driving_Toolbox Bioinformatics_Toolbox 
+10:55:27 (MLM) Communication_Toolbox Video_and_Image_Blockset Control_Toolbox 
+10:55:27 (MLM) Curve_Fitting_Toolbox Signal_Blocks	Data_Acq_Toolbox 
+10:55:27 (MLM) Database_Toolbox Datafeed_Toolbox Neural_Network_Toolbox 
+10:55:27 (MLM) Econometrics_Toolbox RTW_Embedded_Coder Filter_Design_HDL_Coder 
+10:55:27 (MLM) Fin_Instruments_Toolbox Financial_Toolbox Fixed_Point_Toolbox 
+10:55:27 (MLM) Fuzzy_Toolbox	GPU_Coder	GADS_Toolbox	
+10:55:27 (MLM) Simulink_HDL_Coder EDA_Simulator_Link Image_Acquisition_Toolbox 
+10:55:27 (MLM) Image_Toolbox	Instr_Control_Toolbox LTE_Toolbox	
+10:55:27 (MLM) MATLAB_Coder	MATLAB_Builder_for_Java Compiler	
+10:55:27 (MLM) MATLAB_Report_Gen MAP_Toolbox	Mixed_Signal_Blockset 
+10:55:27 (MLM) MPC_Toolbox	MBC_Toolbox	Motor_Control_Blockset 
+10:55:27 (MLM) Navigation_Toolbox OPC_Toolbox	Optimization_Toolbox 
+10:55:27 (MLM) Distrib_Computing_Toolbox PDE_Toolbox	Phased_Array_System_Toolbox 
+10:55:27 (MLM) Powertrain_Blockset Pred_Maintenance_Toolbox RF_Blockset	
+10:55:27 (MLM) RF_Toolbox	ROS_Toolbox	Reinforcement_Learn_Toolbox 
+10:55:27 (MLM) Risk_Management_Toolbox Robotics_System_Toolbox Robust_Toolbox	
+10:55:27 (MLM) Sensor_Fusion_and_Tracking SerDes_Toolbox	Signal_Toolbox	
+10:55:27 (MLM) SimBiology	SimEvents	SimDriveline	
+10:55:27 (MLM) Power_System_Blocks SimHydraulics	SimMechanics	
+10:55:27 (MLM) Simscape	Virtual_Reality_Toolbox SL_Verification_Validation 
+10:55:27 (MLM) Simulink_Code_Inspector Real-Time_Workshop Simulink_Compiler 
+10:55:27 (MLM) Simulink_Control_Design Simulink_Coverage Simulink_Design_Optim 
+10:55:27 (MLM) Simulink_Design_Verifier Real-Time_Win_Target Simulink_PLC_Coder 
+10:55:27 (MLM) XPC_Target	SIMULINK_Report_Gen Simulink_Requirements 
+10:55:27 (MLM) Simulink_Test	SoC_Blockset	Excel_Link	
+10:55:27 (MLM) Stateflow	Statistics_Toolbox Symbolic_Toolbox 
+10:55:27 (MLM) System_Composer Identification_Toolbox Text_Analytics_Toolbox 
+10:55:27 (MLM) Trading_Toolbox Vehicle_Dynamics_Blockset Vehicle_Network_Toolbox 
+10:55:27 (MLM) Vision_HDL_Toolbox WLAN_System_Toolbox Wavelet_Toolbox 
+10:55:27 (MLM) LTE_HDL_Toolbox 
+10:55:27 (MLM) EXTERNAL FILTERS are OFF
+10:55:27 (lmgrd) MLM using TCP-port 1712
+10:55:27 (MLM) License verification completed successfully.
+10:55:27 (MLM) SLOG: Statistics Log Frequency is 240 minute(s).
+10:55:27 (MLM) SLOG: TS update poll interval is 600 seconds.
+10:55:27 (MLM) SLOG: Activation borrow reclaim percentage is 0.
+10:55:27 (MLM) (@MLM-SLOG@) ===============================================
+10:55:27 (MLM) (@MLM-SLOG@) === Vendor Daemon ===
+10:55:27 (MLM) (@MLM-SLOG@) Vendor daemon: MLM
+10:55:27 (MLM) (@MLM-SLOG@) Start-Date: Tue Sep 29 2020 10:55:27 Jerusalem Daylight Time
+10:55:27 (MLM) (@MLM-SLOG@) PID: 13028
+10:55:27 (MLM) (@MLM-SLOG@) VD Version: v11.16.2.1 build 245043 x64_n6 ( build 245043 (ipv6))
+10:55:27 (MLM) (@MLM-SLOG@) 
+10:55:27 (MLM) (@MLM-SLOG@) === Startup/Restart Info ===
+10:55:27 (MLM) (@MLM-SLOG@) Options file used: None
+10:55:27 (MLM) (@MLM-SLOG@) Is vendor daemon a CVD: No
+10:55:27 (MLM) (@MLM-SLOG@) Is FlexNet Licensing Service installed and compatible: No
+10:55:27 (MLM) (@MLM-SLOG@) FlexNet Licensing Service Version: -NA-
+10:55:27 (MLM) (@MLM-SLOG@) Is TS accessed: No
+10:55:27 (MLM) (@MLM-SLOG@) TS access time: -NA-
+10:55:27 (MLM) (@MLM-SLOG@) Number of VD restarts since LS startup: 0
+10:55:27 (MLM) (@MLM-SLOG@) 
+10:55:27 (MLM) (@MLM-SLOG@) === Network Info ===
+10:55:27 (MLM) (@MLM-SLOG@) Listening port: 1712
+10:55:27 (MLM) (@MLM-SLOG@) Daemon select timeout (in seconds): 1
+10:55:27 (MLM) (@MLM-SLOG@) 
+10:55:27 (MLM) (@MLM-SLOG@) === Host Info ===
+10:55:27 (MLM) (@MLM-SLOG@) Host used in license file: license_server_name
+10:55:27 (MLM) (@MLM-SLOG@) HostID node-locked in license file: 005056ad407b 
+10:55:27 (MLM) (@MLM-SLOG@) HostID of the License Server: 005056ad407b
+10:55:27 (MLM) (@MLM-SLOG@) Running on Hypervisor: Unknown Hypervisor
+10:55:27 (MLM) (@MLM-SLOG@) ===============================================
+10:55:29 (MLM) TCP_NODELAY NOT enabled
+10:58:33 (MLM) OUT: "MATLAB" user1@computer1  
+11:06:36 (MLM) SERVER-OUT: Failed to send the message(71) <END>
+11:06:36 (MLM) OUT: "MATLAB" user2@computer2  
+11:15:53 (MLM) OUT: "Neural_Network_Toolbox" user1@computer1  
+11:16:30 (MLM) OUT: "MATLAB" computer3@computer3  
+11:20:02 (MLM) OUT: "MATLAB" user4@computer4  
+11:40:20 (MLM) IN: "MATLAB" user2@computer2  
+11:42:52 (MLM) OUT: "MATLAB" user5@computer5  
+12:15:53 (MLM) IN: "MATLAB" user4@computer4  
+12:22:57 (MLM) IN: "MATLAB" user5@computer5  
+12:28:19 (MLM) OUT: "MATLAB" user6@computer6  
+12:30:17 (MLM) OUT: "Optimization_Toolbox" user6@computer6  
+12:36:53 (MLM) IN: "MATLAB" user6@computer6  
+12:36:53 (MLM) IN: "Optimization_Toolbox" user6@computer6  
+13:08:00 (MLM) IN: "MATLAB" user1@computer1  
+13:08:00 (MLM) IN: "Neural_Network_Toolbox" user1@computer1  
+13:10:03 (MLM) OUT: "MATLAB" user1@computer1  
+13:10:03 (MLM) OUT: "Neural_Network_Toolbox" user1@computer1  
+13:33:20 (MLM) OUT: "Audio_System_Toolbox" user1@computer1  
+13:33:20 (MLM) OUT: "Signal_Blocks" user1@computer1  
+13:33:20 (MLM) OUT: "Signal_Toolbox" user1@computer1  
+14:13:38 (MLM) OUT: "MATLAB" user7@computer7  
+14:16:37 (MLM) OUT: "Signal_Toolbox" computer3@computer3  
+14:16:56 (MLM) OUT: "Communication_Toolbox" computer3@computer3  
+14:16:57 (MLM) OUT: "Signal_Blocks" computer3@computer3  
+14:17:58 (MLM) OUT: "SIMULINK" user7@computer7  
+14:18:09 (MLM) OUT: "Fixed_Point_Toolbox" user7@computer7  
+14:39:11 (MLM) IN: "MATLAB" user7@computer7  
+14:39:11 (MLM) IN: "SIMULINK" user7@computer7  
+14:39:11 (MLM) IN: "Fixed_Point_Toolbox" user7@computer7  
+14:55:28 (MLM) (@MLM-SLOG@) ===============================================
+14:55:28 (MLM) (@MLM-SLOG@) === Last 10 Client Requests Processing Time (in ms) ===
+14:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 14:55:28 Jerusalem Daylight Time
+14:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:50:03 Jerusalem Daylight Time,#4,(3744K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:46:31 Jerusalem Daylight Time,#4,(3748K),(computer3,computer3,376)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:40:03 Jerusalem Daylight Time,#4,(3748K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:36:31 Jerusalem Daylight Time,#5,(3744K),(computer3,computer3,376)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:33:38 Jerusalem Daylight Time,#5,(3740K),(user7,computer7,696)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:30:03 Jerusalem Daylight Time,#5,(3740K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:26:31 Jerusalem Daylight Time,#5,(3744K),(computer3,computer3,376)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:23:38 Jerusalem Daylight Time,#5,(3744K),(user7,computer7,696)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:20:03 Jerusalem Daylight Time,#5,(3744K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 14:18:52 Jerusalem Daylight Time,#5,(3688K),(user7,computer7,696)
+14:55:28 (MLM) (@MLM-SLOG@) 
+14:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak Client Requests Processing Time (in ms) ===
+14:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 14:55:28 Jerusalem Daylight Time
+14:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:46 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:55:29 Jerusalem Daylight Time,#3,(3900K),(user8,license_server_name,640)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:48 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:51 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:17:44 Jerusalem Daylight Time,#5,(3744K),(computer3,computer3,376)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:18:18 Jerusalem Daylight Time,#5,(3688K),(computer3,computer3,376)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:27 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+14:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:32 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+14:55:28 (MLM) (@MLM-SLOG@) 
+14:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak In-house Operations time (in ms) ===
+14:55:28 (MLM) (@MLM-SLOG@) NOTE: Peak times greater than 4 seconds get recorded.
+14:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 14:55:28 Jerusalem Daylight Time
+14:55:28 (MLM) (@MLM-SLOG@) In-house operation time, when, #concurrent clients
+14:55:28 (MLM) (@MLM-SLOG@) 
+14:55:28 (MLM) (@MLM-SLOG@) === Active Connections Info ===
+14:55:28 (MLM) (@MLM-SLOG@) Peak active connections #6 attempted at Tue Sep 29 2020 11:20:01 Jerusalem Daylight Time
+14:55:28 (MLM) (@MLM-SLOG@) 
+14:55:28 (MLM) (@MLM-SLOG@) === Memory Usage Info ===
+14:55:28 (MLM) (@MLM-SLOG@) Peak private bytes 3984K attempted at Tue Sep 29 2020 10:58:33 Jerusalem Daylight Time
+14:55:28 (MLM) (@MLM-SLOG@) ===============================================
+15:00:08 (MLM) IN: "MATLAB" computer3@computer3  
+15:00:08 (MLM) IN: "Communication_Toolbox" computer3@computer3  
+15:00:08 (MLM) IN: "Signal_Blocks" computer3@computer3  
+15:00:08 (MLM) IN: "Signal_Toolbox" computer3@computer3  
+15:16:33 (MLM) OUT: "MATLAB" computer3@computer3  
+15:16:33 (MLM) OUT: "Signal_Toolbox" computer3@computer3  
+15:16:33 (MLM) OUT: "Communication_Toolbox" computer3@computer3  
+15:16:34 (MLM) OUT: "Signal_Blocks" computer3@computer3  
+15:22:32 (MLM) OUT: "MATLAB" user9@computer8  
+15:24:38 (MLM) IN: "MATLAB" user1@computer1  
+15:24:38 (MLM) IN: "Audio_System_Toolbox" user1@computer1  
+15:24:38 (MLM) IN: "Signal_Blocks" user1@computer1  
+15:24:38 (MLM) IN: "Neural_Network_Toolbox" user1@computer1  
+15:24:38 (MLM) IN: "Signal_Toolbox" user1@computer1  
+15:25:21 (MLM) OUT: "MATLAB" user10@computer9  
+15:27:07 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+15:27:14 (MLM) OUT: "MATLAB" user10@computer9  
+15:27:15 (MLM) OUT: "MATLAB" user10@computer9  
+15:27:15 (MLM) OUT: "MATLAB" user10@computer9  
+15:27:16 (MLM) OUT: "MATLAB" user10@computer9  
+15:27:42 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+15:27:42 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+15:57:42 (MLM) IN: "MATLAB" user10@computer9  
+15:57:42 (MLM) IN: "MATLAB" user10@computer9  
+15:57:42 (MLM) IN: "MATLAB" user10@computer9  
+15:57:42 (MLM) IN: "MATLAB" user10@computer9  
+16:08:11 (MLM) OUT: "MATLAB" user5@computer5  
+16:09:31 (MLM) OUT: "MATLAB" user11@computer10  
+16:10:04 (MLM) IN: "MATLAB" user5@computer5  
+16:10:31 (MLM) IN: "MATLAB" user10@computer9  
+16:10:31 (MLM) IN: "GADS_Toolbox" user10@computer9  
+16:10:31 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+16:10:31 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+16:14:59 (MLM) IN: "MATLAB" user11@computer10  
+16:17:43 (MLM) OUT: "Video_and_Image_Blockset" user1@computer1  
+16:18:03 (MLM) OUT: "MATLAB" user1@computer1  
+16:18:03 (MLM) OUT: "Neural_Network_Toolbox" user1@computer1  
+16:18:03 (MLM) OUT: "Audio_System_Toolbox" user1@computer1  
+16:18:03 (MLM) OUT: "Signal_Blocks" user1@computer1  
+16:18:03 (MLM) OUT: "Signal_Toolbox" user1@computer1  
+16:18:09 (MLM) OUT: "Reinforcement_Learn_Toolbox" user1@computer1  
+16:18:09 (MLM) OUT: "Text_Analytics_Toolbox" user1@computer1  
+16:20:17 (MLM) OUT: "MATLAB" user12@computer11  
+16:22:02 (MLM) OUT: "SIMULINK" user12@computer11  
+16:22:32 (MLM) OUT: "Stateflow" user12@computer11  
+16:22:51 (MLM) OUT: "Control_Toolbox" user12@computer11  
+16:23:47 (MLM) OUT: "Curve_Fitting_Toolbox" user12@computer11  
+16:24:33 (MLM) OUT: "GADS_Toolbox" user12@computer11  
+16:24:34 (MLM) OUT: "Optimization_Toolbox" user12@computer11  
+16:24:56 (MLM) IN: "MATLAB" user12@computer11  
+16:24:56 (MLM) IN: "SIMULINK" user12@computer11  
+16:24:56 (MLM) IN: "Control_Toolbox" user12@computer11  
+16:24:56 (MLM) IN: "Curve_Fitting_Toolbox" user12@computer11  
+16:24:56 (MLM) IN: "GADS_Toolbox" user12@computer11  
+16:24:56 (MLM) IN: "Optimization_Toolbox" user12@computer11  
+16:24:56 (MLM) IN: "Stateflow" user12@computer11  
+16:55:27 (lmgrd) TIMESTAMP 9/29/2020
+17:00:29 (MLM) TIMESTAMP 9/29/2020
+17:02:18 (MLM) IN: "MATLAB" user1@computer1  
+17:02:18 (MLM) IN: "Audio_System_Toolbox" user1@computer1  
+17:02:18 (MLM) IN: "Video_and_Image_Blockset" user1@computer1  
+17:02:18 (MLM) IN: "Signal_Blocks" user1@computer1  
+17:02:18 (MLM) IN: "Neural_Network_Toolbox" user1@computer1  
+17:02:18 (MLM) IN: "Reinforcement_Learn_Toolbox" user1@computer1  
+17:02:18 (MLM) IN: "Signal_Toolbox" user1@computer1  
+17:02:18 (MLM) IN: "Text_Analytics_Toolbox" user1@computer1  
+17:34:09 (MLM) OUT: "MATLAB" user1@computer1  
+17:34:09 (MLM) OUT: "Neural_Network_Toolbox" user1@computer1  
+17:34:10 (MLM) OUT: "Audio_System_Toolbox" user1@computer1  
+17:34:11 (MLM) OUT: "Signal_Blocks" user1@computer1  
+17:34:11 (MLM) OUT: "Signal_Toolbox" user1@computer1  
+17:34:12 (MLM) OUT: "Video_and_Image_Blockset" user1@computer1  
+17:34:13 (MLM) OUT: "Reinforcement_Learn_Toolbox" user1@computer1  
+17:34:14 (MLM) OUT: "Text_Analytics_Toolbox" user1@computer1  
+17:44:52 (MLM) OUT: "MATLAB" user10@computer9  
+17:44:52 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+17:44:52 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+17:44:52 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+17:53:37 (MLM) OUT: "Image_Toolbox" user9@computer8  
+18:23:48 (MLM) IN: "MATLAB" user1@computer1  
+18:23:48 (MLM) IN: "Audio_System_Toolbox" user1@computer1  
+18:23:48 (MLM) IN: "Video_and_Image_Blockset" user1@computer1  
+18:23:48 (MLM) IN: "Signal_Blocks" user1@computer1  
+18:23:48 (MLM) IN: "Neural_Network_Toolbox" user1@computer1  
+18:23:48 (MLM) IN: "Reinforcement_Learn_Toolbox" user1@computer1  
+18:23:48 (MLM) IN: "Signal_Toolbox" user1@computer1  
+18:23:48 (MLM) IN: "Text_Analytics_Toolbox" user1@computer1  
+18:30:02 (MLM) IN: "MATLAB" user10@computer9  
+18:30:02 (MLM) IN: "GADS_Toolbox" user10@computer9  
+18:30:02 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+18:30:02 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+18:46:52 (MLM) OUT: "Automated_Driving_Toolbox" user9@computer8  
+18:55:28 (MLM) (@MLM-SLOG@) ===============================================
+18:55:28 (MLM) (@MLM-SLOG@) === Last 10 Client Requests Processing Time (in ms) ===
+18:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 18:55:28 Jerusalem Daylight Time
+18:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:52:33 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:46:52 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:46:52 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:46:52 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:46:34 Jerusalem Daylight Time,#4,(3692K),(computer3,computer3,716)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:42:33 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:36:34 Jerusalem Daylight Time,#4,(3692K),(computer3,computer3,716)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:32:45 Jerusalem Daylight Time,#4,(3692K),(user9,computer8,700)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:26:34 Jerusalem Daylight Time,#5,(3692K),(computer3,computer3,716)
+18:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 18:24:52 Jerusalem Daylight Time,#5,(3748K),(user10,computer9,712)
+18:55:28 (MLM) (@MLM-SLOG@) 
+18:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak Client Requests Processing Time (in ms) ===
+18:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 18:55:28 Jerusalem Daylight Time
+18:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:46 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:55:29 Jerusalem Daylight Time,#3,(3900K),(user8,license_server_name,640)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:48 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:51 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:17:44 Jerusalem Daylight Time,#5,(3744K),(computer3,computer3,376)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:18:18 Jerusalem Daylight Time,#5,(3688K),(computer3,computer3,376)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:27 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+18:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:32 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+18:55:28 (MLM) (@MLM-SLOG@) 
+18:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak In-house Operations time (in ms) ===
+18:55:28 (MLM) (@MLM-SLOG@) NOTE: Peak times greater than 4 seconds get recorded.
+18:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 18:55:28 Jerusalem Daylight Time
+18:55:28 (MLM) (@MLM-SLOG@) In-house operation time, when, #concurrent clients
+18:55:28 (MLM) (@MLM-SLOG@) 
+18:55:28 (MLM) (@MLM-SLOG@) === Active Connections Info ===
+18:55:28 (MLM) (@MLM-SLOG@) Peak active connections #9 attempted at Tue Sep 29 2020 15:27:16 Jerusalem Daylight Time
+18:55:28 (MLM) (@MLM-SLOG@) 
+18:55:28 (MLM) (@MLM-SLOG@) === Memory Usage Info ===
+18:55:28 (MLM) (@MLM-SLOG@) Peak private bytes 3984K attempted at Tue Sep 29 2020 10:58:33 Jerusalem Daylight Time
+18:55:28 (MLM) (@MLM-SLOG@) ===============================================
+19:09:46 (MLM) OUT: "SIMULINK" user9@computer8  
+19:12:52 (MLM) IN: "MATLAB" computer3@computer3  
+19:12:52 (MLM) IN: "Communication_Toolbox" computer3@computer3  
+19:12:52 (MLM) IN: "Signal_Blocks" computer3@computer3  
+19:12:52 (MLM) IN: "Signal_Toolbox" computer3@computer3  
+19:18:59 (MLM) OUT: "MATLAB" user10@computer9  
+19:18:59 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+19:18:59 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+19:19:00 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+19:25:38 (MLM) OUT: "MATLAB" user1@computer1  
+19:25:38 (MLM) OUT: "Neural_Network_Toolbox" user1@computer1  
+19:25:38 (MLM) OUT: "Audio_System_Toolbox" user1@computer1  
+19:25:39 (MLM) OUT: "Signal_Blocks" user1@computer1  
+19:25:39 (MLM) OUT: "Signal_Toolbox" user1@computer1  
+19:25:39 (MLM) OUT: "Video_and_Image_Blockset" user1@computer1  
+19:25:39 (MLM) OUT: "Reinforcement_Learn_Toolbox" user1@computer1  
+19:25:39 (MLM) OUT: "Text_Analytics_Toolbox" user1@computer1  
+19:35:11 (MLM) IN: "MATLAB" user9@computer8  
+19:35:11 (MLM) IN: "SIMULINK" user9@computer8  
+19:35:11 (MLM) IN: "Automated_Driving_Toolbox" user9@computer8  
+19:35:11 (MLM) IN: "Image_Toolbox" user9@computer8  
+19:35:18 (MLM) OUT: "MATLAB" user9@computer8  
+19:38:17 (MLM) OUT: "Image_Toolbox" user9@computer8  
+19:49:10 (MLM) IN: "MATLAB" user10@computer9  
+19:49:10 (MLM) IN: "GADS_Toolbox" user10@computer9  
+19:49:10 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+19:49:10 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+19:54:33 (MLM) OUT: "SIMULINK" user9@computer8  
+19:54:39 (MLM) OUT: "Automated_Driving_Toolbox" user9@computer8  
+19:56:27 (MLM) OUT: "Vehicle_Dynamics_Blockset" user9@computer8  
+20:08:06 (MLM) IN: "MATLAB" user1@computer1  
+20:08:06 (MLM) IN: "Audio_System_Toolbox" user1@computer1  
+20:08:06 (MLM) IN: "Video_and_Image_Blockset" user1@computer1  
+20:08:06 (MLM) IN: "Signal_Blocks" user1@computer1  
+20:08:06 (MLM) IN: "Neural_Network_Toolbox" user1@computer1  
+20:08:06 (MLM) IN: "Reinforcement_Learn_Toolbox" user1@computer1  
+20:08:06 (MLM) IN: "Signal_Toolbox" user1@computer1  
+20:08:06 (MLM) IN: "Text_Analytics_Toolbox" user1@computer1  
+20:18:59 (MLM) OUT: "MATLAB" user10@computer9  
+20:18:59 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+20:18:59 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+20:18:59 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+20:24:28 (MLM) OUT: "MATLAB" user11@computer10  
+20:29:56 (MLM) OUT: "Video_and_Image_Blockset" user9@computer8  
+20:36:38 (MLM) OUT: "MATLAB" user12@computer11  
+20:46:46 (MLM) OUT: "SIMULINK" user12@computer11  
+20:50:38 (MLM) OUT: "Signal_Blocks" user12@computer11  
+21:00:29 (MLM) OUT: "Simulink_Design_Optim" user12@computer11  
+21:00:31 (MLM) OUT: "Optimization_Toolbox" user12@computer11  
+21:00:33 (MLM) OUT: "Simulink_Control_Design" user12@computer11  
+21:04:09 (MLM) IN: "MATLAB" user10@computer9  
+21:04:09 (MLM) IN: "GADS_Toolbox" user10@computer9  
+21:04:09 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+21:04:09 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+21:05:59 (MLM) OUT: "Control_Toolbox" user12@computer11  
+21:10:32 (MLM) OUT: "MATLAB_Report_Gen" user12@computer11  
+21:14:51 (MLM) IN: "MATLAB" user12@computer11  
+21:14:51 (MLM) IN: "SIMULINK" user12@computer11  
+21:14:51 (MLM) IN: "Control_Toolbox" user12@computer11  
+21:14:51 (MLM) IN: "Signal_Blocks" user12@computer11  
+21:14:51 (MLM) IN: "MATLAB_Report_Gen" user12@computer11  
+21:14:51 (MLM) IN: "Optimization_Toolbox" user12@computer11  
+21:14:51 (MLM) IN: "Simulink_Control_Design" user12@computer11  
+21:14:51 (MLM) IN: "Simulink_Design_Optim" user12@computer11  
+21:24:50 (MLM) OUT: "MATLAB" user10@computer9  
+21:24:50 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+21:24:50 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+21:24:50 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+21:45:34 (MLM) OUT: "MATLAB" computer3@computer3  
+21:45:34 (MLM) OUT: "Signal_Toolbox" computer3@computer3  
+21:45:34 (MLM) OUT: "Communication_Toolbox" computer3@computer3  
+21:45:34 (MLM) OUT: "Signal_Blocks" computer3@computer3  
+21:47:51 (MLM) IN: "MATLAB" computer3@computer3  
+21:47:51 (MLM) IN: "Communication_Toolbox" computer3@computer3  
+21:47:51 (MLM) IN: "Signal_Blocks" computer3@computer3  
+21:47:51 (MLM) IN: "Signal_Toolbox" computer3@computer3  
+21:48:03 (MLM) OUT: "MATLAB" computer3@computer3  
+22:01:17 (MLM) OUT: "Signal_Toolbox" computer3@computer3  
+22:01:25 (MLM) OUT: "Communication_Toolbox" computer3@computer3  
+22:01:26 (MLM) OUT: "Signal_Blocks" computer3@computer3  
+22:15:00 (MLM) IN: "MATLAB" user10@computer9  
+22:15:00 (MLM) IN: "GADS_Toolbox" user10@computer9  
+22:15:00 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+22:15:00 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+22:26:27 (MLM) OUT: "MATLAB" user10@computer9  
+22:26:28 (MLM) OUT: "Distrib_Computing_Toolbox" user10@computer9  
+22:26:28 (MLM) OUT: "GADS_Toolbox" user10@computer9  
+22:26:28 (MLM) OUT: "Optimization_Toolbox" user10@computer9  
+22:53:59 (MLM) OUT: "MATLAB" user13@computer12  
+22:54:32 (MLM) IN: "MATLAB" user13@computer12  
+22:55:27 (lmgrd) TIMESTAMP 9/29/2020
+22:55:28 (MLM) (@MLM-SLOG@) ===============================================
+22:55:28 (MLM) (@MLM-SLOG@) === Last 10 Client Requests Processing Time (in ms) ===
+22:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 22:55:28 Jerusalem Daylight Time
+22:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:55:18 Jerusalem Daylight Time,#6,(3692K),(user9,computer8,700)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:32 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 22:54:28 Jerusalem Daylight Time,#7,(3744K),(user11,computer10,708)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 00000000 ms at Tue Sep 29 2020 22:54:21 Jerusalem Daylight Time,#7,(3744K),(user13,computer12,728)
+22:55:28 (MLM) (@MLM-SLOG@) 
+22:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak Client Requests Processing Time (in ms) ===
+22:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 22:55:28 Jerusalem Daylight Time
+22:55:28 (MLM) (@MLM-SLOG@) Request processing time, when, #concurrent clients, (private bytes (in KB)), client info (user, node, FD)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:46 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:55:29 Jerusalem Daylight Time,#3,(3900K),(user8,license_server_name,640)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:45 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:48 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 10:58:51 Jerusalem Daylight Time,#3,(3976K),(user1,computer1,644)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:17:44 Jerusalem Daylight Time,#5,(3744K),(computer3,computer3,376)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:18:18 Jerusalem Daylight Time,#5,(3688K),(computer3,computer3,376)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:27 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+22:55:28 (MLM) (@MLM-SLOG@) 00000016 ms at Tue Sep 29 2020 11:20:32 Jerusalem Daylight Time,#6,(3688K),(user4,computer4,696)
+22:55:28 (MLM) (@MLM-SLOG@) 
+22:55:28 (MLM) (@MLM-SLOG@) === Top 10 Peak In-house Operations time (in ms) ===
+22:55:28 (MLM) (@MLM-SLOG@) NOTE: Peak times greater than 4 seconds get recorded.
+22:55:28 (MLM) (@MLM-SLOG@) Time: Tue Sep 29 2020 22:55:28 Jerusalem Daylight Time
+22:55:28 (MLM) (@MLM-SLOG@) In-house operation time, when, #concurrent clients
+22:55:28 (MLM) (@MLM-SLOG@) 
+22:55:28 (MLM) (@MLM-SLOG@) === Active Connections Info ===
+22:55:28 (MLM) (@MLM-SLOG@) Peak active connections #9 attempted at Tue Sep 29 2020 15:27:16 Jerusalem Daylight Time
+22:55:28 (MLM) (@MLM-SLOG@) 
+22:55:28 (MLM) (@MLM-SLOG@) === Memory Usage Info ===
+22:55:28 (MLM) (@MLM-SLOG@) Peak private bytes 3984K attempted at Tue Sep 29 2020 10:58:33 Jerusalem Daylight Time
+22:55:28 (MLM) (@MLM-SLOG@) ===============================================
+22:56:42 (MLM) IN: "MATLAB" user10@computer9  
+22:56:42 (MLM) IN: "GADS_Toolbox" user10@computer9  
+22:56:42 (MLM) IN: "Optimization_Toolbox" user10@computer9  
+22:56:42 (MLM) IN: "Distrib_Computing_Toolbox" user10@computer9  
+23:04:38 (MLM) IN: "MATLAB" user11@computer10  
+23:05:33 (MLM) TIMESTAMP 9/29/2020

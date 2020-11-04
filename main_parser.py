@@ -2,6 +2,7 @@ from shutil import copyfile, copy
 import os
 from datetime import datetime, date
 from RowClass import RowClass
+import matplotlib.pyplot as plt
 
 # datetime, order, submit_time, runtime, number_of_nodes, user_id, group_id,
 # application_id, number_of_queues, wait_time=0, average_cpu_time=-1, average_memory_per_node=-1,
@@ -25,6 +26,8 @@ log_file.seek(0)
 
 started_time = datetime.strptime(first_row.split()[4] + " " + first_row.split()[5], "%m/%d/%y %H:%M:%S")
 
+RuntimeHist=dict()
+
 
 with open(SWF_log, "w") as swf_file:
     for row in log_file.readlines():
@@ -36,7 +39,12 @@ with open(SWF_log, "w") as swf_file:
         submit_time = datetime.combine(date.today(), date_and_time.time()) - datetime.combine(date.today(),
                                                                                               started_time.time())  # subtract current time from start time to get time from beginning
         runtime = row_split_list[3]
-
+        
+        #RuntimeHist.append(runtime)
+        if runtime in RuntimeHist.keys():
+            RuntimeHist[runtime]+=1
+        else:
+           RuntimeHist.setdefault(runtime,1)
         number_of_nodes = row_split_list[2]
 
         user_id = row_split_list[0]
@@ -56,3 +64,7 @@ with open(SWF_log, "w") as swf_file:
         swf_file.write(current_row.convert_to_string())
 
         row_counter += 1
+plt.bar(RuntimeHist.keys(),RuntimeHist.values())
+plt.xlabel("Number of jobs")
+plt.ylabel("Runtime")
+plt.show()
