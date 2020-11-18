@@ -1,6 +1,6 @@
 # SWF Parser
 
-Currently works on The NASA Ames iPSC/860 log
+Currently works on The NASA Ames iPSC/860 log + MATLAB log
 
 ## How it works
 
