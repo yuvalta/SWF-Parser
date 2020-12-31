@@ -11,7 +11,7 @@ Output:
 %}
 
 Param = struct();
-Param.mu=[20,20];
-Param.sigma=[1,1];
-Param.lambda = [0.4,0.6];
+Param.mu=[25,20];
+Param.sigma=[10,10];
+Param.lambda = [0.3,0.6];
 end

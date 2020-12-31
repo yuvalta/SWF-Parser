@@ -10,7 +10,7 @@ Output:
     Data: the dataset with updated labels
 %}
 loglogistic=pdf('LogLogistic',Data(:,1),Param.mu(2),Param.sigma(2));
-gauss=pdf('Normal',Data(:,1),Param.mu(1),Param.sigma(1));
+gauss=normpdf(Data(:,1),Param.mu(1),Param.sigma(1));
 for i = 1: size(Data,1)
 
     p_cluster1 = gauss(i)*Param.lambda(1);
