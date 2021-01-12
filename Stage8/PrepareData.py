@@ -71,7 +71,3 @@ scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 scipy.io.savemat('Runtimes.mat',RuntimesDict)
 scipy.io.savemat('JobSizes.mat',JobSizesDict)
 scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
-
-    
-    
-    
