@@ -34,14 +34,17 @@ def GenerateData(User,index):
    
 def GenerateThinkTimes(User):
     Prev_endtime=0
+    submit_time=0
     thinktimes=[]
     for Job in User:
         submit_time=int(Job.split()[1])
         endtime=int(submit_time)+int(Job.split()[3])
         thinktimes.append(submit_time-Prev_endtime)
         Prev_endtime=endtime
+    thinktimes[0]=0
     return thinktimes
         
+
 
 NewUserArrival=list()
 i=0
@@ -49,6 +52,7 @@ active=0
 while(i<66242):
   NewUserArrival.append(0)
   i+=1
+
 with open(SWF_log, "r") as swf_file:
     for row in swf_file.readlines():
         row_split_list = row.split()
@@ -63,7 +67,9 @@ with open(SWF_log, "r") as swf_file:
             while(SubmitInMinutes<len(NewUserArrival)):
                 NewUserArrival[SubmitInMinutes]+=1
                 SubmitInMinutes+=1  
-print(max(NewUserArrival))
+NewUserArrivalStrings=list()
+for a in NewUserArrival:
+   NewUserArrivalStrings.append(str(a))                
 InterarrivalsDict=dict()
 RuntimesDict=dict()
 JobSizesDict=dict()
@@ -81,7 +87,7 @@ scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 scipy.io.savemat('Runtimes.mat',RuntimesDict)
 scipy.io.savemat('JobSizes.mat',JobSizesDict)
 scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
-#scipy.io.savemat('NewUserArrival.mat',NewUserArrival)
+#scipy.io.savemat('NewUserArrival.mat',NewUserArrivalStrings)
 
     
     
