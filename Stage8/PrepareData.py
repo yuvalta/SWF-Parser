@@ -41,7 +41,7 @@ with open(SWF_log, "r") as swf_file:
              UsersDict[UserID].append(row)
         else:
             UsersDict.setdefault(UserID,[]).append(row)
-
+        
 InterarrivalsDict=dict()
 RuntimesDict=dict()
 JobSizes=dict()
@@ -54,6 +54,7 @@ for User in UsersDict.values():
     JobSizes.setdefault("User"+User[0].split()[11],JobSizesData)
 scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 scipy.io.savemat('Runtimes.mat',RuntimesDict)
+scipy.io.savemat('JobSizes.mat',JobSizes)
 
     
     
