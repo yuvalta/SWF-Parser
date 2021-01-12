@@ -33,16 +33,16 @@ def GenerateData(User,index):
    
 def GenerateThinkTimes(User):
     Prev_endtime=0
+    submit_time=0
     thinktimes=[]
     for Job in User:
         submit_time=int(Job.split()[1])
         endtime=int(submit_time)+int(Job.split()[3])
         thinktimes.append(submit_time-Prev_endtime)
         Prev_endtime=endtime
+    thinktimes[0]=0
     return thinktimes
         
-
-
 with open(SWF_log, "r") as swf_file:
     for row in swf_file.readlines():
         row_split_list = row.split()
