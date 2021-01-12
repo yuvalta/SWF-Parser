@@ -24,6 +24,25 @@ def Interarrivals(User):
         Interarrivals_pdf.setdefault(time,Interarrivals_counter[time]/n)
     return Interarrivals_data,Interarrivals_pdf
     
+def GenerateData(User,index):
+    Runtime_data=[]
+    for Job in User:
+        Runtime=int(Job.split()[index])
+        Runtime_data.append(Runtime)
+    return Runtime_data
+   
+def GenerateThinkTimes(User):
+    Prev_endtime=0
+    submit_time=0
+    thinktimes=[]
+    for Job in User:
+        submit_time=int(Job.split()[1])
+        endtime=int(submit_time)+int(Job.split()[3])
+        thinktimes.append(submit_time-Prev_endtime)
+        Prev_endtime=endtime
+    thinktimes[0]=0
+    return thinktimes
+        
 with open(SWF_log, "r") as swf_file:
     for row in swf_file.readlines():
         row_split_list = row.split()
@@ -34,12 +53,24 @@ with open(SWF_log, "r") as swf_file:
              UsersDict[UserID].append(row)
         else:
             UsersDict.setdefault(UserID,[]).append(row)
-
+        
 InterarrivalsDict=dict()
+RuntimesDict=dict()
+JobSizesDict=dict()
+ThinkTimesDict=dict()
 for User in UsersDict.values():
-    Data,PDF=Interarrivals(User)
-    InterarrivalsDict.setdefault("User"+User[0].split()[11],Data)
+    InterarrivalData,PDF=Interarrivals(User)
+    RuntimesData=GenerateData(User,3)
+    JobSizesData=GenerateData(User,4)
+    ThinkTimesData=GenerateThinkTimes(User)
+    InterarrivalsDict.setdefault("User"+User[0].split()[11],InterarrivalData)
+    RuntimesDict.setdefault("User"+User[0].split()[11],RuntimesData)
+    JobSizesDict.setdefault("User"+User[0].split()[11],JobSizesData)
+    ThinkTimesDict.setdefault("User"+User[0].split()[11],ThinkTimesData)
 scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
+scipy.io.savemat('Runtimes.mat',RuntimesDict)
+scipy.io.savemat('JobSizes.mat',JobSizesDict)
+scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
 
     
     
