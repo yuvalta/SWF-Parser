@@ -1,5 +1,6 @@
 import pickle
 import scipy.io
+import math
 #import numpy as np
 SWF_log = "NASA-iPSC-1993-3.1-cln.SWF"
 UsersDict=dict()
@@ -42,7 +43,12 @@ def GenerateThinkTimes(User):
     return thinktimes
         
 
-
+NewUserArrival=list()
+i=0
+active=0
+while(i<66242):
+  NewUserArrival.append(0)
+  i+=1
 with open(SWF_log, "r") as swf_file:
     for row in swf_file.readlines():
         row_split_list = row.split()
@@ -50,10 +56,14 @@ with open(SWF_log, "r") as swf_file:
             continue
         UserID= row_split_list[11]
         if UserID in UsersDict:
-             UsersDict[UserID].append(row)
+            UsersDict[UserID].append(row)            
         else:
             UsersDict.setdefault(UserID,[]).append(row)
-        
+            SubmitInMinutes=math.ceil((int(row_split_list[1])/120))
+            while(SubmitInMinutes<len(NewUserArrival)):
+                NewUserArrival[SubmitInMinutes]+=1
+                SubmitInMinutes+=1  
+print(max(NewUserArrival))
 InterarrivalsDict=dict()
 RuntimesDict=dict()
 JobSizesDict=dict()
@@ -71,6 +81,7 @@ scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 scipy.io.savemat('Runtimes.mat',RuntimesDict)
 scipy.io.savemat('JobSizes.mat',JobSizesDict)
 scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
+#scipy.io.savemat('NewUserArrival.mat',NewUserArrival)
 
     
     
