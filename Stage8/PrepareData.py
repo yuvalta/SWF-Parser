@@ -1,6 +1,7 @@
 import pickle
 import scipy.io
 import math
+import pandas as pd
 #import numpy as np
 SWF_log = "NASA-iPSC-1993-3.1-cln.SWF"
 UsersDict=dict()
@@ -46,12 +47,12 @@ def GenerateThinkTimes(User):
         
 
 
-NewUserArrival=list()
-i=0
-active=0
-while(i<66242):
-  NewUserArrival.append(0)
-  i+=1
+# NewUserArrival=list()
+# i=0
+# active=0
+# while(i<66242):
+#   NewUserArrival.append(0)
+#   i+=1
 
 with open(SWF_log, "r") as swf_file:
     for row in swf_file.readlines():
@@ -63,13 +64,13 @@ with open(SWF_log, "r") as swf_file:
             UsersDict[UserID].append(row)            
         else:
             UsersDict.setdefault(UserID,[]).append(row)
-            SubmitInMinutes=math.ceil((int(row_split_list[1])/120))
-            while(SubmitInMinutes<len(NewUserArrival)):
-                NewUserArrival[SubmitInMinutes]+=1
-                SubmitInMinutes+=1  
-NewUserArrivalStrings=list()
-for a in NewUserArrival:
-   NewUserArrivalStrings.append(str(a))                
+            #SubmitInMinutes=math.ceil((int(row_split_list[1])/120))
+            #while(SubmitInMinutes<len(NewUserArrival)):
+            #    NewUserArrival[SubmitInMinutes]+=1
+            #    SubmitInMinutes+=1  
+#NewUserArrivalStrings=list()
+#for a in NewUserArrival:
+#    NewUserArrivalStrings.append(str(a))                
 InterarrivalsDict=dict()
 RuntimesDict=dict()
 JobSizesDict=dict()
@@ -83,9 +84,29 @@ for User in UsersDict.values():
     RuntimesDict.setdefault("User"+User[0].split()[11],RuntimesData)
     JobSizesDict.setdefault("User"+User[0].split()[11],JobSizesData)
     ThinkTimesDict.setdefault("User"+User[0].split()[11],ThinkTimesData)
-scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
-scipy.io.savemat('Runtimes.mat',RuntimesDict)
-scipy.io.savemat('JobSizes.mat',JobSizesDict)
-scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
+Users=dict()
+
+for key in RuntimesDict.keys():
+    avg=[]
+    sum_=0
+    sum_=sum(RuntimesDict[key])
+    avg.append(sum_/len(RuntimesDict[key]))
+    sum_=sum(InterarrivalsDict[key])
+    avg.append(sum_/len(InterarrivalsDict[key]))
+    sum_=sum(JobSizesDict[key])
+    avg.append(sum_/len(JobSizesDict[key]))
+    sum_=sum(ThinkTimesDict[key])
+    avg.append(sum_/len(ThinkTimesDict[key]))
+    Users.setdefault(key,avg)
+    
+#Created a Dataframe - each column is a feature vector
+    
+
+        
+df=pd.DataFrame(Users)
+#scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
+#scipy.io.savemat('Runtimes.mat',RuntimesDict)
+#scipy.io.savemat('JobSizes.mat',JobSizesDict)
+#scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
 #scipy.io.savemat('NewUserArrival.mat',NewUserArrivalStrings)
 
