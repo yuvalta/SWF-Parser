@@ -2,6 +2,7 @@ import pickle
 import scipy.io
 import math
 import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
 #import numpy as np
 SWF_log = "NASA-iPSC-1993-3.1-cln.SWF"
 UsersDict=dict()
@@ -104,6 +105,9 @@ for key in RuntimesDict.keys():
 
         
 df=pd.DataFrame(Users)
+df_=df.T
+df_.columns =['Runtime','Interarrival_Time','Job_Size','Think_Time']
+scipy.io.savemat('UsersDataframe.mat',df)
 #scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 #scipy.io.savemat('Runtimes.mat',RuntimesDict)
 #scipy.io.savemat('JobSizes.mat',JobSizesDict)
