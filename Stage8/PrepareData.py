@@ -86,8 +86,9 @@ for User in UsersDict.values():
     JobSizesDict.setdefault("User"+User[0].split()[11],JobSizesData)
     ThinkTimesDict.setdefault("User"+User[0].split()[11],ThinkTimesData)
 Users=dict()
-
+wholesum=0
 for key in RuntimesDict.keys():
+    wholesum+=len(RuntimesDict[key])
     avg=[]
     sum_=0
     sum_=sum(RuntimesDict[key])
@@ -107,10 +108,11 @@ for key in RuntimesDict.keys():
 df=pd.DataFrame(Users)
 df_=df.T
 df_.columns =['Runtime','Interarrival_Time','Job_Size','Think_Time']
-scipy.io.savemat('UsersDataframe.mat',df)
-#scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
-#scipy.io.savemat('Runtimes.mat',RuntimesDict)
-#scipy.io.savemat('JobSizes.mat',JobSizesDict)
-#scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
+scipy.io.savemat('UsersDataframe.mat',df_)
+scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
+scipy.io.savemat('Runtimes.mat',RuntimesDict)
+scipy.io.savemat('JobSizes.mat',JobSizesDict)
+scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
+
 #scipy.io.savemat('NewUserArrival.mat',NewUserArrivalStrings)
 
