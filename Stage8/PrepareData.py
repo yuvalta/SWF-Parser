@@ -3,6 +3,13 @@ import scipy.io
 import math
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.cluster import KMeans
+import seaborn as sns
+from sklearn.metrics import silhouette_score
+from sklearn.cluster import SpectralClustering
+import warnings
+warnings.filterwarnings("ignore")
+
 #import numpy as np
 SWF_log = "NASA-iPSC-1993-3.1-cln.SWF"
 UsersDict=dict()
@@ -104,15 +111,26 @@ for key in RuntimesDict.keys():
 #Created a Dataframe - each column is a feature vector
     
 
-        
+features = ['Runtime','Interarrival_Time','Job_Size','Think_Time']
 df=pd.DataFrame(Users)
 df_=df.T
 df_.columns =['Runtime','Interarrival_Time','Job_Size','Think_Time']
-scipy.io.savemat('UsersDataframe.mat',df_)
-scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
-scipy.io.savemat('Runtimes.mat',RuntimesDict)
-scipy.io.savemat('JobSizes.mat',JobSizesDict)
-scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
+
+#spectral clustering
+spectral_clustering = SpectralClustering(n_clusters=7, assign_labels="discretize",random_state=0).fit(df_[features])
+df_['spectral_cluster'] = spectral_clustering.labels_
+sns.pairplot(df_,hue='spectral_cluster',palette='tab10')
+print('spectral Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['spectral_cluster']))
+
+kmeans = KMeans(n_clusters=7, random_state=0).fit(df_)
+df_['kmeans_cluster'] = kmeans.labels_
+sns.pairplot(df_,hue='kmeans_cluster',palette='tab10')
+print('Kmean Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['kmeans_cluster']))
+#scipy.io.savemat('UsersDataframe.mat',df_)
+#scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
+#scipy.io.savemat('Runtimes.mat',RuntimesDict)
+#scipy.io.savemat('JobSizes.mat',JobSizesDict)
+#scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
 
 #scipy.io.savemat('NewUserArrival.mat',NewUserArrivalStrings)
 
