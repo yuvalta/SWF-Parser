@@ -7,6 +7,7 @@ from sklearn.cluster import KMeans
 import seaborn as sns
 from sklearn.metrics import silhouette_score
 from sklearn.cluster import SpectralClustering
+from sklearn.cluster import DBSCAN
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -116,13 +117,19 @@ df=pd.DataFrame(Users)
 df_=df.T
 df_.columns =['Runtime','Interarrival_Time','Job_Size','Think_Time']
 
-#spectral clustering
-spectral_clustering = SpectralClustering(n_clusters=7, assign_labels="discretize",random_state=0).fit(df_[features])
-df_['spectral_cluster'] = spectral_clustering.labels_
-sns.pairplot(df_,hue='spectral_cluster',palette='tab10')
-print('spectral Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['spectral_cluster']))
+#DBSCAN 
+# dbscan=DBSCAN(eps=1000000,min_samples=2).fit(df_)
+# df_['DBSCAN_clusters']=dbscan.labels_
+# sns.pairplot(df_,hue='DBSCAN_clusters',palette='tab10')
+# print('DBSCAN Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['DBSCAN_clusters']))
 
-kmeans = KMeans(n_clusters=7, random_state=0).fit(df_)
+#spectral clustering
+# spectral_clustering = SpectralClustering(n_clusters=7, assign_labels="discretize",random_state=0).fit(df_[features])
+# df_['spectral_cluster'] = spectral_clustering.labels_
+# sns.pairplot(df_,hue='spectral_cluster',palette='tab10')
+# print('spectral Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['spectral_cluster']))
+
+kmeans = KMeans(n_clusters=7, random_state=0).fit(df_[features])
 df_['kmeans_cluster'] = kmeans.labels_
 sns.pairplot(df_,hue='kmeans_cluster',palette='tab10')
 print('Kmean Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['kmeans_cluster']))
