@@ -1,0 +1,15 @@
+"Residence User1:<ResidenceTime1> User2:<ResidenceTime2> .... User69:<ResidenceTime69>"
+// For Example : Residence User1:4892 User2:12099 User3:123 .... User69:3
+"Activity Week1:<NumberOfNewUsers1> Week2:<NumberOfNewUsers2> .... Week13:<NumberOfNewUsers13>"
+"Random_Seed 1"
+<Jobs of the first user chosen>
+             .
+	     .
+	     .
+	     .
+	     .	    
+	     .
+<Jobs of the last user chosen>
+
+// The number of users chosen must be 2 long term users (i.e are active the whole time) and 6-7 short-term users (you could add more if you want)
+// The file size should not exceed 2000 lines if it does then please forget about this commment :) 
