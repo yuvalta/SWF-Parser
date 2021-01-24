@@ -1,14 +1,14 @@
-import pickle
+#import pickle
 import re
 import scipy.io
-import math
+#import math
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier
+#from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cluster import KMeans
-import seaborn as sns
+#import seaborn as sns
+#from sklearn.cluster import SpectralClustering
+#from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
-from sklearn.cluster import SpectralClustering
-from sklearn.cluster import DBSCAN
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -129,7 +129,7 @@ cluster4=dict()
 cluster5=dict()
 cluster6=dict()
 ResidenceTimes = scipy.io.loadmat('ResidenceTimes.mat')
-NewUserArrivals=scipy.io.loadmat('NewUserArrival.mat')
+NewUserArrivals=scipy.io.loadmat('NewUsersPerWeek.mat')
 dic=ResidenceTimes
 i=0
 for key in list(dic):
@@ -186,54 +186,59 @@ cluster3=dict(sorted(cluster3.items(), key=lambda item: item[1]))
 cluster4=dict(sorted(cluster4.items(), key=lambda item: item[1]))
 cluster5=dict(sorted(cluster5.items(), key=lambda item: item[1]))
 cluster6=dict(sorted(cluster6.items(), key=lambda item: item[1]))
-
-i=1
-config_file=open("config_file"+str(i)+".txt","w")
-config_file.write("Residence ")
-for user in ResidenceTimes.keys():
-    res_time=str(ResidenceTimes[user][0][0].item())
-    config_file.write(user+":"+res_time+" ")
-
-config_file.write("\nActivity  ")
-for week in NewUserArrivals.keys():
-    newusers=str(NewUserArrivals[week].item())
-    config_file.write(week+":"+newusers+" ")
+j=1
+for i in range(3):
     
-config_file.write("\nRandom_Seed 1\n")
-
-
-chosenusers=list()
-
-
-chosenusers.append(list(cluster0)[len(cluster0)-1])
-chosenusers.append(list(cluster0)[len(cluster0)-2])
-chosenusers.append(list(cluster1)[0])
-chosenusers.append(list(cluster2)[0])
-chosenusers.append(list(cluster3)[len(cluster3)-1])
-chosenusers.append(list(cluster3)[0])
-chosenusers.append(list(cluster4)[0])
-chosenusers.append(list(cluster4)[1])
-chosenusers.append(list(cluster5)[0])
-chosenusers.append(list(cluster5)[1])
-chosenusers.append(list(cluster6)[0])
-chosenusers.append(list(cluster6)[1])
-
-swf_lines=list()
-temp = re.compile("([a-zA-Z]+)([0-9]+)") 
-
-for user in chosenusers:
-    res = temp.match(user).groups() 
-    swf_lines.append(UsersDict[res[1]])
+    config_file=open("config_file"+str(i+1)+".txt","w")
+    config_file.write("Residence ")
+    for user in ResidenceTimes.keys():
+        res_time=str(ResidenceTimes[user][0][0].item())
+        config_file.write(user+":"+res_time+" ")
     
-    
-for lines in swf_lines:
-    for line in lines:
-        config_file.write(line)
+    config_file.write("\nActivity  ")
+    for week in NewUserArrivals.keys():
+        newusers=str(NewUserArrivals[week].item())
+        config_file.write(week+":"+newusers+" ")
+        
+    config_file.write("\nRandom_Seed "+str(j)+"\n")
+    j+=1
+    if i==0:
+        config_file.write("Load 100\n")
+    if i==1:
+        config_file.write("Load 120\n")
+    if i==2:
+        config_file.write("Load 80\n")
 
     
+    chosenusers=list()
+    
+    config_file.write("Long-Term User4 User25 User17\n")
+    chosenusers.append(list(cluster0)[len(cluster0)-1])#long term
+    chosenusers.append(list(cluster1)[0])#short term
+    chosenusers.append(list(cluster2)[0])#short term
+    chosenusers.append(list(cluster3)[len(cluster3)-1])#long term
+    chosenusers.append(list(cluster3)[0])#short term
+    chosenusers.append(list(cluster4)[0])#short term
+    chosenusers.append(list(cluster5)[0])#short term
+    chosenusers.append(list(cluster5)[1])#short term
+    chosenusers.append(list(cluster6)[0])#long term
+    
+    swf_lines=list()
+    temp = re.compile("([a-zA-Z]+)([0-9]+)") 
+    
+    for user in chosenusers:
+        res = temp.match(user).groups() 
+        swf_lines.append(UsersDict[res[1]])
+        
+        
+    for lines in swf_lines:
+        for line in lines:
+            config_file.write(line)
+
+    
     
 
-config_file.close()
+    config_file.close()
 #scipy.io.savemat('UsersDataframe.mat',df_)
 #scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 #scipy.io.savemat('Runtimes.mat',RuntimesDict)
