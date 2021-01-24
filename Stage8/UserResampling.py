@@ -61,12 +61,8 @@ for key in UsersDict:
     np.random.seed(RandomSeed)
     Rand_Week1=np.random.choice(UsersWeek[UsersDict[key]])
     Rand_Week1*=604800
-    RandomSeed+=1
-    np.random.seed(RandomSeed)
     Rand_Week2=np.random.choice(UsersWeek[UsersDict[key]])
     Rand_Week2*=604800
-    RandomSeed+=1
-    np.random.seed(RandomSeed)
     Rand_Week3=np.random.choice(UsersWeek[UsersDict[key]])
     Rand_Week3*=604800
     RandomSeed+=1
