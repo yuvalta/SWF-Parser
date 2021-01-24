@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def ParseDistribution(row):
     row_split_list=row.split()
@@ -8,6 +9,14 @@ def ParseDistribution(row):
             continue
         retdict.setdefault(row_split_list[i].split(':')[0],row_split_list[i].split(':')[1])
     return retdict
+
+def GetJobsAfterTime(time,Jobs):
+    ReturnedJobs=[]
+    for Job in Jobs:
+        row=Jobs.split()
+        if int(row[1]>=time):
+            ReturnedJobs.append(row)
+    return ReturnedJobs
 
 trace1=[]
 trace2=[]
@@ -42,23 +51,54 @@ with open(cfg_file, "r") as cfg_file:
             UsersDict.setdefault(UserID,[]).append(row)
             UsersWeek.setdefault(UserID,[]).append(submittime)
 
-# now we start the initializing part of the User resampling method as described in the book page 425 of the pdf.
-with open(cfg_file, "r") as cfg_file:
-    for row in cfg_file.readlines():
-        row_split_list = row.split()
+# loop to remove duplicates
+for key in UsersWeek:
+    UsersWeek[key]=list(set(UsersWeek[key]))
+
+# Create the initial workload by combining the activity of all the
+# users, where each user starts from a random week during his or her logged activity
+for key in UsersDict:
+    np.random.seed(RandomSeed)
+    Rand_Week1=np.random.choice(UsersWeek[UsersDict[key]])
+    Rand_Week1*=604800
+    Rand_Week2=np.random.choice(UsersWeek[UsersDict[key]])
+    Rand_Week2*=604800
+    Rand_Week3=np.random.choice(UsersWeek[UsersDict[key]])
+    Rand_Week3*=604800
+    RandomSeed+=1
+    Jobs1=GetJobsAfterTime(Rand_Week1,UsersDict[key])
+    Jobs2=GetJobsAfterTime(Rand_Week2,UsersDict[key])
+    Jobs3=GetJobsAfterTime(Rand_Week3,UsersDict[key])
+    trace1+=Jobs1
+    trace2+=Jobs2
+    trace3+=Jobs3
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+# with open(cfg_file, "r") as cfg_file:
+#     for row in cfg_file.readlines():
+#         row_split_list = row.split()
         
-        if row_split_list[0]=="Residence":
-            # already handled this line
-            continue
-        if row_split_list[0]=="Activity":
-            # already handled this line
-            continue
-        if row_split_list[0]=="Seed":
-            continue
-        
-        trace1.append(row)            
-        trace2.append(row)   
-        trace3.append(row)
-        data.append(row)            
+#         if row_split_list[0]=="Residence":
+#             # already handled this line
+#             continue
+#         if row_split_list[0]=="Activity":
+#             # already handled this line
+#             continue
+#         if row_split_list[0]=="Random_Seed":
+#             continue
         
 

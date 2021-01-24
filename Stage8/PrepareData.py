@@ -59,8 +59,7 @@ def GenerateThinkTimes(User):
 
 NewUserArrival=list()
 i=0
-active=0
-while(i<66242):
+while(i<14):
   NewUserArrival.append(0)
   i+=1
 
@@ -74,17 +73,22 @@ with open(SWF_log, "r") as swf_file:
             UsersDict[UserID].append(row)            
         else:
             UsersDict.setdefault(UserID,[]).append(row)
-            SubmitInMinutes=math.ceil((int(row_split_list[1])/120))
+            SubmitInMinutes=round((int(row_split_list[1])/604800))
             while(SubmitInMinutes<len(NewUserArrival)):
                 NewUserArrival[SubmitInMinutes]+=1
                 SubmitInMinutes+=1  
-NewUserArrivalStrings=list()
-for a in NewUserArrival:
-    NewUserArrivalStrings.append(str(a))                
+              
 InterarrivalsDict=dict()
 RuntimesDict=dict()
 JobSizesDict=dict()
 ThinkTimesDict=dict()
+NewUsersPerWeek=dict()
+i=13
+while i>0:
+    NewUserArrival[i]=NewUserArrival[i]-NewUserArrival[i-1]
+    NewUsersPerWeek.setdefault("Week"+str(i+1),str(NewUserArrival[i]))   
+    i-=1
+NewUsersPerWeek.setdefault("Week1",str(NewUserArrival[0]))    
 for User in UsersDict.values():
     InterarrivalData,PDF=Interarrivals(User)
     RuntimesData=GenerateData(User,3)
@@ -236,7 +240,7 @@ config_file.close()
 #scipy.io.savemat('JobSizes.mat',JobSizesDict)
 #scipy.io.savemat('ThinkTimes.mat',ThinkTimesDict)
 
-#scipy.io.savemat('NewUserArrival.mat',NewUserArrivalStrings)
+#scipy.io.savemat('NewUsersPerWeek.mat',NewUsersPerWeek)
 
 # -*- coding: utf-8 -*-
 # """Kmeans.ipynb
