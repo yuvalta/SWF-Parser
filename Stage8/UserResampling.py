@@ -55,7 +55,7 @@ def SortTrace(trace):
 def GenerateUsers(ShortTermUsers,UsersDict_,UsersWeek_):
     newdict=dict()
     for number in ShortTermUsers:
-        Rand_Week=np.random.choice(UsersDict_[str(number)])
+        Rand_Week=np.random.choice(UsersWeek_[str(number)])
         newdict.setdefault(str(number),GetJobsInWeek(Rand_Week, UsersDict_[str(number)]))
     return newdict
    
@@ -171,7 +171,7 @@ i=0
 for key in NewUsersPerWeek:
     tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
     NumOfUsers=np.random.normal(NewUsersPerWeek[key],2,1)
-    for j in range(NumOfUsers):
+    for j in range(int(NumOfUsers)):
         User1=np.random.choice(tempDict.keys())
         User2=np.random.choice(tempDict.keys())
         User3=np.random.choice(tempDict.keys())
