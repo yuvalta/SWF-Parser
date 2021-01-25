@@ -16,7 +16,7 @@ def GetJobsInWeek(week,Jobs):
         row=Job.split()
         WeekSubmit=math.floor(int(row[1])/604800)
         if week==WeekSubmit:
-            ReturnedJobs.append(row)
+            ReturnedJobs.append(Job)
     return ReturnedJobs
 
 def GetJobsAfterTime(time,Jobs):
@@ -24,7 +24,7 @@ def GetJobsAfterTime(time,Jobs):
     for Job in Jobs:
         row=Job.split()
         if int(row[1])>=time:
-            ReturnedJobs.append(row)
+            ReturnedJobs.append(Job)
     return ReturnedJobs
 
 def GetLongTermUsers(row):
@@ -170,14 +170,14 @@ i=0
 # with the average being the number of new users per week in the original workload log.
 for key in NewUsersPerWeek:
     tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
-    NumOfUsers=np.random.normal(NewUsersPerWeek[key],2,1)
+    NumOfUsers=np.random.normal(NewUsersPerWeek[key],0.2,1)
     for j in range(int(NumOfUsers)):
         User1=np.random.choice(list(tempDict.keys()))
         User2=np.random.choice(list(tempDict.keys()))
         User3=np.random.choice(list(tempDict.keys()))
-        jobs1=Sync(i,tempDict[User1])
-        jobs2=Sync(i,tempDict[User2])
-        jobs3=Sync(i,tempDict[User3])
+        jobs1=Sync(i,tempDict[str(User1)])
+        jobs2=Sync(i,tempDict[str(User2)])
+        jobs3=Sync(i,tempDict[str(User3)])
         trace1+=jobs1
         trace2+=jobs2
         trace3+=jobs3
