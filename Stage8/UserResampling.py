@@ -55,8 +55,8 @@ def SortTrace(trace):
 def GenerateUsers(ShortTermUsers,UsersDict_,UsersWeek_):
     newdict=dict()
     for number in ShortTermUsers:
-        Rand_Week=np.random.choice(UsersDict_["User"+str(number)])
-        newdict.setdefault("User"+str(number),GetJobsInWeek(Rand_Week, UsersDict_["User"+str(number)]))
+        Rand_Week=np.random.choice(UsersDict_[str(number)])
+        newdict.setdefault(str(number),GetJobsInWeek(Rand_Week, UsersDict_[str(number)]))
     return newdict
    
 def AddWaitTimes(Trace):
@@ -165,6 +165,9 @@ for key in UsersDict:
     trace3+=Jobs3
     
 i=0
+# select at random a certain number of new temporary users to add
+# in each week of the generated workload. Randomize the actual number of new users,
+# with the average being the number of new users per week in the original workload log.
 for key in NewUsersPerWeek:
     tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
     NumOfUsers=np.random.normal(NewUsersPerWeek[key],2,1)
