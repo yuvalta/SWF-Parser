@@ -215,15 +215,18 @@ for i in range(3):
     
     config_file.write("Long-Term User4 User25 User17\n")
     chosenusers.append(list(cluster0)[len(cluster0)-1])#long term
-    chosenusers.append(list(cluster1)[0])#short term
+    chosenusers.append(list(cluster0)[0])#short term
+    chosenusers.append(list(cluster0)[2])#short term
+    chosenusers.append(list(cluster1)[1])#short term
     chosenusers.append(list(cluster2)[0])#short term
     chosenusers.append(list(cluster3)[len(cluster3)-1])#long term
-    chosenusers.append(list(cluster3)[0])#short term
-    chosenusers.append(list(cluster4)[0])#short term
-    chosenusers.append(list(cluster5)[0])#short term
+    chosenusers.append(list(cluster3)[2])#short term
+    chosenusers.append(list(cluster3)[3])#short term
+    chosenusers.append(list(cluster4)[2])#short term
     chosenusers.append(list(cluster5)[1])#short term
     chosenusers.append(list(cluster6)[0])#long term
     
+  
     swf_lines=list()
     temp = re.compile("([a-zA-Z]+)([0-9]+)") 
     
@@ -270,15 +273,18 @@ for i in range(3):
     
     chosenusers=list()
     
-    config_file.write("Long-Term User9 User7 User18\n")
+    config_file.write("Long-Term User9 User7 User25 User18\n")
     chosenusers.append(list(cluster0)[len(cluster0)-3])#long term
     chosenusers.append(list(cluster0)[len(cluster0)-4])#long term    
+    chosenusers.append(list(cluster0)[4])#short term
+    chosenusers.append(list(cluster0)[5])#short term
     chosenusers.append(list(cluster1)[1])#short term
     chosenusers.append(list(cluster2)[0])#short term
-    chosenusers.append(list(cluster3)[0])#short term
-    chosenusers.append(list(cluster3)[1])#short term
-    chosenusers.append(list(cluster4)[0])#short term
-    chosenusers.append(list(cluster4)[1])#short term    
+    chosenusers.append(list(cluster3)[len(cluster3)-1])#long term
+    chosenusers.append(list(cluster3)[5])#short term
+    chosenusers.append(list(cluster3)[9])#short term
+    chosenusers.append(list(cluster3)[10])#short term
+    chosenusers.append(list(cluster4)[2])#short term
     chosenusers.append(list(cluster5)[1])#short term
     chosenusers.append(list(cluster6)[1])#long term
     
