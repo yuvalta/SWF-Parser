@@ -172,9 +172,9 @@ for key in NewUsersPerWeek:
     tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
     NumOfUsers=np.random.normal(NewUsersPerWeek[key],2,1)
     for j in range(int(NumOfUsers)):
-        User1=np.random.choice(tempDict.keys())
-        User2=np.random.choice(tempDict.keys())
-        User3=np.random.choice(tempDict.keys())
+        User1=np.random.choice(list(tempDict.keys()))
+        User2=np.random.choice(list(tempDict.keys()))
+        User3=np.random.choice(list(tempDict.keys()))
         jobs1=Sync(i,tempDict[User1])
         jobs2=Sync(i,tempDict[User2])
         jobs3=Sync(i,tempDict[User3])
