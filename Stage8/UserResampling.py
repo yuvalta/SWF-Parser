@@ -83,11 +83,12 @@ def AddWaitTimes(Trace):
      i+=1    
   return Trace1
  
-def Sync(week,Jobs):
+def Sync(week,Jobs,startingWeek):
     NewJobs=[]
+    comp=startingWeek-week
     for j in Jobs:
         row=j.split()
-        row[1]=str(int(row[1])%604800+week*604800)
+        row[1]=str(int(row[1])-(comp*6048000))
         r=""
         for v in row:
            r+=(v+"     ")
@@ -169,15 +170,15 @@ i=0
 # in each week of the generated workload. Randomize the actual number of new users,
 # with the average being the number of new users per week in the original workload log.
 for key in NewUsersPerWeek:
-    tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
+    #tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
     NumOfUsers=np.random.normal(NewUsersPerWeek[key],0.2,1)
     for j in range(int(NumOfUsers)):
-        User1=np.random.choice(list(tempDict.keys()))
-        User2=np.random.choice(list(tempDict.keys()))
-        User3=np.random.choice(list(tempDict.keys()))
-        jobs1=Sync(i,tempDict[str(User1)])
-        jobs2=Sync(i,tempDict[str(User2)])
-        jobs3=Sync(i,tempDict[str(User3)])
+        User1=np.random.choice(list(UsersDict.keys()))
+        User2=np.random.choice(list(UsersDict.keys()))
+        User3=np.random.choice(list(UsersDict.keys()))
+        jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)])
+        jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)])
+        jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)])
         trace1+=jobs1
         trace2+=jobs2
         trace3+=jobs3
