@@ -211,4 +211,4 @@ trace3=SortTrace(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-ExportTraces(trace1, "output_file.txt")
+ExportTraces(trace1, "output_file.txt") #the file will be routed to Stage9/Output
