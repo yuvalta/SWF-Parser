@@ -189,5 +189,3 @@ trace3=SortTrace(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-
-
