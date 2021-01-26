@@ -86,11 +86,11 @@ def AddWaitTimes(Trace):
 def Sync(week,Jobs,UsersWeeks,CurrentUsers):
     NewJobs=[]
     for num in UsersWeeks:
-        CurrentUsers[num-week-1]+=1
-    comp=UsersWeeks[0]-week
+        CurrentUsers[num-week]+=1
+    comp=UsersWeeks[0] - week
     for j in Jobs:
         row=j.split()
-        row[1]=str(int(row[1])-(comp*6048000))
+        row[1]=str(int(row[1])-(comp*604800))
         r=""
         for v in row:
            r+=(v+"     ")
@@ -136,21 +136,23 @@ with open(cfg_file, "r") as cfg_file:
         submittime=math.floor(int(submittime)/604800)
         if UserID in UsersDict:
             UsersDict[UserID].append(row)   
-            UsersWeek[UserID].append(submittime+1)
+            UsersWeek[UserID].append(submittime)
         else:
             if int(UserID) not in Long_Term_Pool:
                 UsersNumbers.append(int(UserID))
             UsersDict.setdefault(UserID,[]).append(row)
-            UsersWeek.setdefault(UserID,[]).append((submittime+1))
+            UsersWeek.setdefault(UserID,[]).append((submittime))
 
 # Multiply the number of new users per week with the given load to generate more load on the system
 load/=100
 for key in NewUsersPerWeek:
-    NewUsersPerWeek[key]=round(NewUsersPerWeek[key]*load)-3
+    NewUsersPerWeek[key]=round(NewUsersPerWeek[key]*load)
     
 # loop to remove duplicates
 for key in UsersWeek:
     UsersWeek[key]=list(set(UsersWeek[key]))
+    UsersWeek[key].sort()
+    
 
 
 # Create the initial workload by combining the activity of all the
@@ -178,21 +180,24 @@ i=0
 for key in NewUsersPerWeek:
     #tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
     index=int(key.replace('Week',''))
-    NumOfUsers1=np.random.normal(NewUsersPerWeek[key]-CurrentUsers1[index-1],2,1)
-    NumOfUsers2=np.random.normal(NewUsersPerWeek[key]-CurrentUsers2[index-1],2,1)
-    NumOfUsers3=np.random.normal(NewUsersPerWeek[key]-CurrentUsers3[index-1],2,1)
-    for j in range(int(NumOfUsers1)):
-        User1=np.random.choice(list(UsersDict.keys()))
-        jobs1=Sync(i+1,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1)
-        trace1+=jobs1
-    for j in range(int(NumOfUsers2)):
-       User2=np.random.choice(list(UsersDict.keys()))
-       jobs2=Sync(i+1,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2)
-       trace2+=jobs2
-    for j in range(int(NumOfUsers3)):
-       User3=np.random.choice(list(UsersDict.keys()))
-       jobs3=Sync(i+1,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3)
-       trace3+=jobs3
+    NumOfUsers1=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers1[i]
+    NumOfUsers2=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers2[i]
+    NumOfUsers3=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers3[i]
+    if NumOfUsers1>0:
+        for j in range(int(NumOfUsers1)):
+            User1=np.random.choice(list(UsersDict.keys()))
+            jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1)
+            trace1+=jobs1
+    if NumOfUsers2>0:
+        for j in range(int(NumOfUsers2)):
+            User2=np.random.choice(list(UsersDict.keys()))
+            jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2)
+            trace2+=jobs2
+    if NumOfUsers3>0:
+        for j in range(int(NumOfUsers3)):
+            User3=np.random.choice(list(UsersDict.keys()))
+            jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3)
+            trace3+=jobs3
     i+=1
 trace1=SortTrace(trace1)
 trace2=SortTrace(trace2)
