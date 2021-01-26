@@ -1,6 +1,12 @@
 import math
 import numpy as np
 
+def ExportTraces(trace,output_file):
+    output_=open("..\\Stage9\\Output\\"+output_file,'w')
+    for job in trace:
+        output_.write(job+'\n')
+    output_.close()
+        
 def ParseDistribution(row):
     row_split_list=row.split()
     retdict=dict()
@@ -205,3 +211,4 @@ trace3=SortTrace(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
+ExportTraces(trace1, "output_file.txt")
