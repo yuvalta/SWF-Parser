@@ -146,7 +146,11 @@ with open(cfg_file, "r") as cfg_file:
 # Multiply the number of new users per week with the given load to generate more load on the system
 load/=100
 for key in NewUsersPerWeek:
-    NewUsersPerWeek[key]=round(NewUsersPerWeek[key]*load)
+    splittednum=math.modf((NewUsersPerWeek[key]*load))
+    NewUsersPerWeek[key]=int(splittednum[1])
+    probability=splittednum[0]
+    if np.random.random()<=probability:
+        NewUsersPerWeek[key]+=1
     
 # loop to remove duplicates
 for key in UsersWeek:
