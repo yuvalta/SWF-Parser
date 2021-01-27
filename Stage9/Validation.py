@@ -13,3 +13,4 @@ with open(output2, "r") as output2:
 with open(output3, "r") as output3:
     for row in output3.readlines():
         Log3.append(row)
+
