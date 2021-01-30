@@ -1,6 +1,44 @@
 import math
 import numpy as np
 
+def mergeSort(arr):
+    if len(arr) > 1:
+         # Finding the mid of the array
+        mid = len(arr)//2
+        # Dividing the array elements
+        L = arr[:mid]
+ 
+        # into 2 halves
+        R = arr[mid:]
+ 
+        # Sorting the first half
+        mergeSort(L)
+ 
+        # Sorting the second half
+        mergeSort(R)
+ 
+        i = j = k = 0
+        # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if int(L[i].split()[1]) < int(R[j].split()[1]):
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+ 
+        # Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+ 
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+            
 def ExportTraces(trace,output_file):
     output_=open("..\\Stage9\\Output1\\"+output_file,'w')
     for job in trace:
@@ -39,7 +77,7 @@ def GetLongTermUsers(row):
     for i in range(len(row_split_list)):
         if i==0:
             continue
-        retlist.append(int(row_split_list[i][-1]))
+        retlist.append(int(row_split_list[i].replace('User','')))
     return retlist
 
 def SortTrace(trace):
@@ -69,10 +107,11 @@ def AddWaitTimes(Trace):
   i=1
   Trace1=[]
   row=Trace[0].split()
+  row[0]=str(i)
   row[2]='0'
   r=''
   for v in row:
-      r+=(v+"   ")
+      r+=(v+"     ")
   Trace1.append(r)    
   while i<len(Trace):
      row_split1=Trace[i-1].split()
@@ -82,14 +121,16 @@ def AddWaitTimes(Trace):
          row_split1[2]=str(WaitTime)
      else:
          row_split1[2]='0'
+     row_split1[0]=str(i+1)
      r=""    
      for v in row_split1:
-        r+=(v+"   ")
+        r+=(v+"     ")
      Trace1.append(r)   
      i+=1    
   return Trace1
  
 def Sync(week,Jobs,UsersWeeks,CurrentUsers):
+    global ID
     NewJobs=[]
     for num in UsersWeeks:
         CurrentUsers[num-week]+=1
@@ -97,12 +138,39 @@ def Sync(week,Jobs,UsersWeeks,CurrentUsers):
     for j in Jobs:
         row=j.split()
         row[1]=str(int(row[1])-(comp*604800))
+        row[11]=str(ID)
         r=""
         for v in row:
            r+=(v+"     ")
         NewJobs.append(r)
+    ID+=1
     return NewJobs
- 
+
+def ThinkTimes(Log):
+    NewLog=[]
+    Users=dict()
+    for job in Log:
+        job_splitted=job.split()
+        UserID=job_splitted[11]
+        if UserID in Users:
+            Users[UserID].append(job) 
+        else:
+            Users.setdefault(UserID,[]).append(job)
+    for key in Users:
+        end_time=0
+        for i in range(len(Users[key])):
+            jobsplitted=Users[key][i].split()
+            sub_time=int(jobsplitted[1])
+            think=sub_time-end_time
+            end_time=sub_time+int(jobsplitted[1])
+            jobsplitted[17]=str(think)
+            r=""    
+            for v in jobsplitted:
+                r+=(v+"   ")
+            NewLog.append(r)  
+    return NewLog
+
+ID=1
 trace1=[]
 trace2=[]
 trace3=[]
@@ -110,7 +178,7 @@ CurrentUsers1=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 CurrentUsers2=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 CurrentUsers3=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 data=[]
-cfg_file = "Input2//config_file1.txt"
+cfg_file = "Input1//config_file1.txt"
 ResidenceTimes=dict()
 NewUsersPerWeek=dict()
 UsersDict=dict()
@@ -157,6 +225,15 @@ for key in NewUsersPerWeek:
     probability=splittednum[0]
     if np.random.random()<=probability:
         NewUsersPerWeek[key]+=1
+        
+
+i=2
+average=0
+while i < 14:
+    key1="Week"+str(i)
+    average+=(NewUsersPerWeek[key1])
+    i+=1
+average/=14
     
 # loop to remove duplicates
 for key in UsersWeek:
@@ -183,38 +260,42 @@ for key in UsersDict:
     trace2+=Jobs2
     trace3+=Jobs3
     
-i=0
 # select at random a certain number of new temporary users to add
 # in each week of the generated workload. Randomize the actual number of new users,
 # with the average being the number of new users per week in the original workload log.
-for key in NewUsersPerWeek:
-    #tempDict=GenerateUsers(UsersNumbers, UsersDict, UsersWeek)
-    index=int(key.replace('Week',''))
-    NumOfUsers1=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers1[i]
-    NumOfUsers2=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers2[i]
-    NumOfUsers3=np.random.normal(NewUsersPerWeek[key],2,1)-CurrentUsers3[i]
-    if NumOfUsers1>0:
-        for j in range(int(NumOfUsers1)):
-            User1=np.random.choice(list(UsersDict.keys()))
+while len(trace1)<load*18000 and len(trace2)<load*18000 and len(trace3)<load*18000:
+    i=0
+    ID=1
+    for key in NewUsersPerWeek:
+        index=int(key.replace('Week',''))
+        NumOfUsers=NewUsersPerWeek[key]
+        if NumOfUsers<4:
+            NumOfUsers=round(average)
+        for j in range(int(NumOfUsers)):
+            User1=str(np.random.choice(UsersNumbers))
             jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1)
             trace1+=jobs1
-    if NumOfUsers2>0:
-        for j in range(int(NumOfUsers2)):
-            User2=np.random.choice(list(UsersDict.keys()))
+        for j in range(int(NumOfUsers)):
+            User2=str(np.random.choice(UsersNumbers))
             jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2)
             trace2+=jobs2
-    if NumOfUsers3>0:
-        for j in range(int(NumOfUsers3)):
-            User3=np.random.choice(list(UsersDict.keys()))
+        for j in range(int(NumOfUsers)):
+            User3=str(np.random.choice(UsersNumbers))
             jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3)
             trace3+=jobs3
-    i+=1
-trace1=SortTrace(trace1)
-trace2=SortTrace(trace2)
-trace3=SortTrace(trace3)
+        i+=1
+trace1=ThinkTimes(trace1)
+trace2=ThinkTimes(trace2)
+trace3=ThinkTimes(trace3)
+mergeSort(trace1)
+mergeSort(trace2)
+mergeSort(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-#ExportTraces(trace1, "output1.txt") #the file will be routed to Stage9/Output
-#ExportTraces(trace2, "output2.txt")
-#ExportTraces(trace3, "output3.txt")
+trace1=trace1[0:len(trace1)-1000]
+trace2=trace2[0:len(trace2)-1000]
+trace3=trace3[0:len(trace3)-1000]
+ExportTraces(trace1, "outputload100_1.txt") #the file will be routed to Stage9/Output
+ExportTraces(trace2, "outputload100_2.txt")
+ExportTraces(trace3, "outputload100_3.txt")

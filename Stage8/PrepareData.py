@@ -58,6 +58,7 @@ def GenerateThinkTimes(User):
 
 
 NewUserArrival=list()
+allUsers=dict()
 i=0
 while(i<14):
   NewUserArrival.append(0)
@@ -70,9 +71,11 @@ with open(SWF_log, "r") as swf_file:
             continue
         UserID= row_split_list[11]
         if UserID in UsersDict:
-            UsersDict[UserID].append(row)            
+            UsersDict[UserID].append(row)  
+            allUsers[UserID].append(row)
         else:
             UsersDict.setdefault(UserID,[]).append(row)
+            allUsers.setdefault(UserID,[]).append(row)
             SubmitInMinutes=round((int(row_split_list[1])/604800))
             while(SubmitInMinutes<len(NewUserArrival)):
                 NewUserArrival[SubmitInMinutes]+=1
@@ -129,7 +132,7 @@ cluster4=dict()
 cluster5=dict()
 cluster6=dict()
 ResidenceTimes = scipy.io.loadmat('ResidenceTimes.mat')
-NewUserArrivals=scipy.io.loadmat('NewUsersPerWeek.mat')
+NewUserArrivals=scipy.io.loadmat('NewUserArrival.mat')
 dic=ResidenceTimes
 i=0
 for key in list(dic):
