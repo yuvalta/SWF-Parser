@@ -1,6 +1,5 @@
 import math
 import numpy as np
-import time
 
 def mergeSort(arr):
     if len(arr) > 1:
@@ -41,7 +40,7 @@ def mergeSort(arr):
             k += 1
             
 def ExportTraces(trace,output_file):
-    output_=open("..\\Stage9\\Output2\\"+output_file,'w')
+    output_=open("..\\Stage9\\TEST\\"+output_file,'w')
     for job in trace:
         output_.write(job+'\n')
     output_.close()
@@ -64,12 +63,16 @@ def GetJobsInWeek(week,Jobs):
             ReturnedJobs.append(Job)
     return ReturnedJobs
 
-def GetJobsAfterTime(time,Jobs):
+def GetJobsAfterTime(time,Jobs,ID):
     ReturnedJobs=[]
     for Job in Jobs:
         row=Job.split()
         if int(row[1])>=time:
-            ReturnedJobs.append(Job)
+            row[11]=str(ID)
+            r=""
+            for v in row:
+                r+=(v+"     ")
+            ReturnedJobs.append(r)
     return ReturnedJobs
 
 def GetLongTermUsers(row):
@@ -128,8 +131,7 @@ def AddWaitTimes(Trace):
      i+=1    
   return Trace1
  
-def Sync(week,Jobs,UsersWeeks,CurrentUsers):
-    global ID
+def Sync(week,Jobs,UsersWeeks,CurrentUsers,ID):
     NewJobs=[]
     for num in UsersWeeks:
         CurrentUsers[num-week]+=1
@@ -137,6 +139,7 @@ def Sync(week,Jobs,UsersWeeks,CurrentUsers):
     for j in Jobs:
         row=j.split()
         row[1]=str(int(row[1])-(comp*604800))
+        row[11]=str(ID%69)
         r=""
         for v in row:
            r+=(v+"     ")
@@ -167,7 +170,9 @@ def ThinkTimes(Log):
             NewLog.append(r)  
     return NewLog
 
-ID=1
+ID1=1
+ID2=1
+ID3=1
 trace1=[]
 trace2=[]
 trace3=[]
@@ -175,7 +180,7 @@ CurrentUsers1=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 CurrentUsers2=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 CurrentUsers3=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 data=[]
-cfg_file = "Input2//config_file2.txt"
+cfg_file = "Input2//config_file3.txt"
 ResidenceTimes=dict()
 NewUsersPerWeek=dict()
 UsersDict=dict()
@@ -241,9 +246,12 @@ for key in UsersDict:
     Rand_Week3=np.random.choice(UsersWeek[key])
     Rand_Week3*=604800
     RandomSeed+=1
-    Jobs1=GetJobsAfterTime(Rand_Week1,UsersDict[key])
-    Jobs2=GetJobsAfterTime(Rand_Week2,UsersDict[key])
-    Jobs3=GetJobsAfterTime(Rand_Week3,UsersDict[key])
+    Jobs1=GetJobsAfterTime(Rand_Week1,UsersDict[key],ID1)
+    ID1+=1
+    Jobs2=GetJobsAfterTime(Rand_Week2,UsersDict[key],ID2)
+    ID2+=1
+    Jobs3=GetJobsAfterTime(Rand_Week3,UsersDict[key],ID3)
+    ID3+=1
     trace1+=Jobs1
     trace2+=Jobs2
     trace3+=Jobs3
@@ -261,18 +269,21 @@ for key in NewUsersPerWeek:
     if NumOfUsers1>0:
         for j in range(int(NumOfUsers1)):
             User1=np.random.choice(list(UsersDict.keys()))
-            jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1)
+            jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1,ID1)
             trace1+=jobs1
+            ID1+=1
     if NumOfUsers2>0:
         for j in range(int(NumOfUsers2)):
             User2=np.random.choice(list(UsersDict.keys()))
-            jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2)
+            jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2,ID2)
             trace2+=jobs2
+            ID2+=1
     if NumOfUsers3>0:
         for j in range(int(NumOfUsers3)):
             User3=np.random.choice(list(UsersDict.keys()))
-            jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3)
+            jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3,ID3)
             trace3+=jobs3
+            ID3+=1
     i+=1
 trace1=ThinkTimes(trace1)
 trace2=ThinkTimes(trace2)
@@ -283,8 +294,8 @@ mergeSort(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-# ExportTraces(trace1, "outputload80_1.txt") #the file will be routed to Stage9/Output
-# ExportTraces(trace2, "outputload80_2.txt")
-# ExportTraces(trace3, "outputload80_3.txt")
+ExportTraces(trace1, "outputload80_1.txt") #the file will be routed to Stage9/Output
+ExportTraces(trace2, "outputload80_2.txt")
+ExportTraces(trace3, "outputload80_3.txt")
 
 

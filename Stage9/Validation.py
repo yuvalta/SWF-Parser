@@ -3,15 +3,15 @@ import math
 import matplotlib.pyplot as plt
 from hurst import compute_Hc
 from statsmodels.distributions.empirical_distribution import ECDF
-outputload80_1="Output2\\outputload80_1.txt"
-outputload80_2="Output2\\outputload80_2.txt"
-outputload80_3="Output2\\outputload80_3.txt"
-outputload100_1="Output2\\outputload100_1.txt"
-outputload100_2="Output2\\outputload100_2.txt"
-outputload100_3="Output2\\outputload100_3.txt"
-outputload120_1="Output2\\outputload120_1.txt"
-outputload120_2="Output2\\outputload120_2.txt"
-outputload120_3="Output2\\outputload120_3.txt"
+outputload80_1="TEST\\outputload80_1.txt"
+outputload80_2="TEST\\outputload80_2.txt"
+outputload80_3="TEST\\outputload80_3.txt"
+outputload100_1="TEST\\outputload100_1.txt"
+outputload100_2="TEST\\outputload100_2.txt"
+outputload100_3="TEST\\outputload100_3.txt"
+outputload120_1="TEST\\outputload120_1.txt"
+outputload120_2="TEST\\outputload120_2.txt"
+outputload120_3="TEST\\outputload120_3.txt"
 original_log="..\\Stage8\\NASA-iPSC-1993-3.1-cln.SWF"
 Log_load80_1=[]
 Log_load80_2=[]
@@ -100,22 +100,16 @@ def Runtimes(Log):
 
 def UserDistribution(Log):
     UsersIDs=[]
-    NewUserArrival=[0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    NewUsersPerWeek=dict()
+    NewUserArrival=np.zeros(math.floor(int(Log[-1].split()[1])/86400)+1)
     for Job in Log:
         UserID= Job.split()[11]
-        week=math.floor((int(Job.split()[1])/604800))
+        week=math.floor((int(Job.split()[1])/86400))
         if UserID not in UsersIDs:
             UsersIDs.append(UserID)
             while(week<len(NewUserArrival)):
                NewUserArrival[week]+=1
                week+=1
-    j=13
-    while j>0:
-        NewUserArrival[j]=NewUserArrival[j]-NewUserArrival[j-1]
-        NewUsersPerWeek.setdefault("Week"+str(j+1),(NewUserArrival[j]))   
-        j-=1
-    return NewUsersPerWeek
+    return NewUserArrival    
     
 def ThinkTimes(Log):
     n=0
@@ -414,6 +408,24 @@ def ShowWeeklyCyclesGraph(load80_1,load80_2,load80_3,load100_1,load100_2,load100
     plt.plot()
     return 
 
+def UserDistributionGraphs(Data1,Data2,Data3,Data,load):
+    fig,(ax1,ax2,ax3,ax4)=plt.subplots(1,4)
+    fig.suptitle("User Distribution Graph")
+    ax1.set_title("First Trace With "+str(load)+"% Load")
+    ax2.set_title("Second Trace With "+str(load)+"% Load")
+    ax3.set_title("Third Trace With "+str(load)+"% Load")
+    ax4.set_title("Original Log")
+    ax1.set_ylabel('Number Of Users')
+    ax1.set_xlabel('Time in Days')
+    ax2.set_xlabel('Time in Days')
+    ax3.set_xlabel('Time in Days')
+    ax4.set_xlabel('Time in Days')
+    ax1.plot(Data1)
+    ax2.plot(Data2)
+    ax3.plot(Data3)
+    ax4.plot(Data)
+    return 
+
 # load all traces to lists
 with open(outputload80_1, "r") as output1:
     for row in output1.readlines():
@@ -500,16 +512,19 @@ Original_Log=AdjustThinkTimes(Original_Log)
 
 
 # Generate User Distribution lists and pdf
-# Users_Distribution_load80_1=UserDistribution(Log_load80_1)
-# Users_Distribution_load80_2=UserDistribution(Log_load80_2)
-# Users_Distribution_load80_3=UserDistribution(Log_load80_3)
-# Users_Distribution_load100_1=UserDistribution(Log_load100_1)
-# Users_Distribution_load100_2=UserDistribution(Log_load100_2)
-# Users_Distribution_load100_3=UserDistribution(Log_load100_3)
-# Users_Distribution_load120_1=UserDistribution(Log_load120_1)
-# Users_Distribution_load120_2=UserDistribution(Log_load120_2)
-# Users_Distribution_load120_3=UserDistribution(Log_load120_3)
-# Users_Distribution=UserDistribution(Original_Log)
+Users_Distribution_load80_1=UserDistribution(Log_load80_1)
+Users_Distribution_load80_2=UserDistribution(Log_load80_2)
+Users_Distribution_load80_3=UserDistribution(Log_load80_3)
+Users_Distribution_load100_1=UserDistribution(Log_load100_1)
+Users_Distribution_load100_2=UserDistribution(Log_load100_2)
+Users_Distribution_load100_3=UserDistribution(Log_load100_3)
+Users_Distribution_load120_1=UserDistribution(Log_load120_1)
+Users_Distribution_load120_2=UserDistribution(Log_load120_2)
+Users_Distribution_load120_3=UserDistribution(Log_load120_3)
+Users_Distribution=UserDistribution(Original_Log)
+UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
+UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
+UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
 
 # Generate Think Times lists and pdf
 # Thinktime_data_load80_1,Thinktimes_pdf_load80_1=ThinkTimes(Log_load80_1)

@@ -132,7 +132,7 @@ cluster4=dict()
 cluster5=dict()
 cluster6=dict()
 ResidenceTimes = scipy.io.loadmat('ResidenceTimes.mat')
-NewUserArrivals=scipy.io.loadmat('NewUserArrival.mat')
+NewUserArrivals=scipy.io.loadmat('NewUsersPerWeek.mat')
 dic=ResidenceTimes
 i=0
 for key in list(dic):
