@@ -125,11 +125,11 @@ def ThinkTimes(Log):
     for Job in Log:
         Thinktime=int(Job.split()[17])
         Thinktime_data.append(Thinktime)
-    if Thinktime in Thinktimes_counter:
-        Thinktimes_counter[Thinktime]+=1
-    else:
-        Thinktimes_counter.setdefault(Thinktime,1)
-    n+=1
+        if Thinktime in Thinktimes_counter:
+            Thinktimes_counter[Thinktime]+=1
+        else:
+            Thinktimes_counter.setdefault(Thinktime,1)
+        n+=1
     for time in Thinktimes_counter:
         Thinktimes_pdf.setdefault(time,Thinktimes_counter[time]/n)
     return Thinktime_data,Thinktimes_pdf
@@ -255,6 +255,21 @@ def PDFsCompare(pdf1,pdf2,pdf3,original,load,attrib):
     plt.show()
     return
 
+def ECDFsCompare(Data1,Data2,Data3,Data,load,attrib):
+    fig, ax = plt.subplots()
+    fig.suptitle('PDF Of '+attrib+' with '+str(load)+'% Load')
+    ecdf1=ECDF(Data1)
+    ecdf2=ECDF(Data2)
+    ecdf3=ECDF(Data3)
+    ecdf=ECDF(Data)
+    ax.plot(ecdf1.x,ecdf1.y,label='Trace1')
+    ax.plot(ecdf2.x,ecdf2.y,label='Trace2')
+    ax.plot(ecdf3.x,ecdf3.y,label='Trace3')
+    ax.plot(ecdf.x,ecdf.y,label='Original Trace')
+    ax.legend()
+    plt.show()
+    return
+    
 def ScatterPlot(X1,Y1,X2,Y2,X3,Y3,load):
     fig,(ax1,ax2,ax3)=plt.subplots(1,3)
     fig.suptitle("Scatter Plot Of Wait Times As Function Of Subtimes")
@@ -467,6 +482,7 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
 # LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
 
+
 # Generate Runtime lists and pdf
 # Runtime_data_load80_1,Runtimes_pdf_load80_1=Runtimes(Log_load80_1)
 # Runtime_data_load80_2,Runtimes_pdf_load80_2=Runtimes(Log_load80_2)
@@ -506,6 +522,9 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # Thinktime_data_load120_2,Thinktimes_pdf_load120_2=ThinkTimes(Log_load120_2)
 # Thinktime_data_load120_3,Thinktimes_pdf_load120_3=ThinkTimes(Log_load120_3)
 # Thinktime_data,Thinktimes_pdf=ThinkTimes(Original_Log)
+#ECDFsCompare(Thinktime_data_load80_1, Thinktime_data_load80_2, Thinktime_data_load80_3, Thinktime_data, 80, 'Think Times')
+#ECDFsCompare(Thinktime_data_load100_1, Thinktime_data_load100_2, Thinktime_data_load100_3, Thinktime_data, 100, 'Think Times')
+#ECDFsCompare(Thinktime_data_load120_1, Thinktime_data_load120_2, Thinktime_data_load120_3, Thinktime_data, 120, 'Think Times')
 
 # Generate Job Sizes lists and pdf
 # JobSizes_data_load80_1,JobSizes_pdf_load80_1=JobSizes(Log_load80_1)

@@ -129,6 +129,7 @@ def AddWaitTimes(Trace):
   return Trace1
  
 def Sync(week,Jobs,UsersWeeks,CurrentUsers):
+    global ID
     NewJobs=[]
     for num in UsersWeeks:
         CurrentUsers[num-week]+=1
@@ -166,6 +167,7 @@ def ThinkTimes(Log):
             NewLog.append(r)  
     return NewLog
 
+ID=1
 trace1=[]
 trace2=[]
 trace3=[]
