@@ -89,12 +89,12 @@ def Runtimes(Log):
     for Job in Log:
         Runtime=int(Job.split()[3])
         Runtime_data.append(Runtime)
-    if Runtime in Runtimes_counter:
-        Runtimes_counter[Runtime]+=1
-    else:
-        Runtimes_counter.setdefault(Runtime,1)
-    n+=1
-    for time in Runtimes_counter:
+        if Runtime in Runtimes_counter:
+            Runtimes_counter[Runtime]+=1
+        else:
+            Runtimes_counter.setdefault(Runtime,1)
+        n+=1
+    for time in Runtimes_counter.keys():
         Runtimes_pdf.setdefault(time,Runtimes_counter[time]/n)
     return Runtime_data,Runtimes_pdf
 
@@ -478,9 +478,9 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # Runtime_data_load120_2,Runtimes_pdf_load120_2=Runtimes(Log_load120_2)
 # Runtime_data_load120_3,Runtimes_pdf_load120_3=Runtimes(Log_load120_3)
 # Runtime_data,Runtimes_pdf=Runtimes(Original_Log)
-#PDFsCompare(Runtimes_pdf_load80_1, Runtimes_pdf_load80_2, Runtimes_pdf_load80_3, Runtimes_pdf, 80, 'Runtimes')
-#PDFsCompare(Runtimes_pdf_load100_1, Runtimes_pdf_load100_2, Runtimes_pdf_load100_3, Runtimes_pdf, 100, 'Runtimes')
-#PDFsCompare(Runtimes_pdf_load120_1, Runtimes_pdf_load120_2, Runtimes_pdf_load120_3, Runtimes_pdf, 120, 'Runtimes')
+# PDFsCompare(Runtimes_pdf_load80_1, Runtimes_pdf_load80_2, Runtimes_pdf_load80_3, Runtimes_pdf, 80, 'Runtimes')
+# PDFsCompare(Runtimes_pdf_load100_1, Runtimes_pdf_load100_2, Runtimes_pdf_load100_3, Runtimes_pdf, 100, 'Runtimes')
+# PDFsCompare(Runtimes_pdf_load120_1, Runtimes_pdf_load120_2, Runtimes_pdf_load120_3, Runtimes_pdf, 120, 'Runtimes')
 
 
 # Generate User Distribution lists and pdf
