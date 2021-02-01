@@ -3,15 +3,16 @@ import math
 import matplotlib.pyplot as plt
 from hurst import compute_Hc
 from statsmodels.distributions.empirical_distribution import ECDF
-outputload80_1="TEST\\outputload80_1.txt"
-outputload80_2="TEST\\outputload80_2.txt"
-outputload80_3="TEST\\outputload80_3.txt"
-outputload100_1="TEST\\outputload100_1.txt"
-outputload100_2="TEST\\outputload100_2.txt"
-outputload100_3="TEST\\outputload100_3.txt"
-outputload120_1="TEST\\outputload120_1.txt"
-outputload120_2="TEST\\outputload120_2.txt"
-outputload120_3="TEST\\outputload120_3.txt"
+import random
+outputload80_1="Output2\\outputload80_1.txt"
+outputload80_2="Output2\\outputload80_2.txt"
+outputload80_3="Output2\\outputload80_3.txt"
+outputload100_1="Output2\\outputload100_1.txt"
+outputload100_2="Output2\\outputload100_2.txt"
+outputload100_3="Output2\\outputload100_3.txt"
+outputload120_1="Output2\\outputload120_1.txt"
+outputload120_2="Output2\\outputload120_2.txt"
+outputload120_3="Output2\\outputload120_3.txt"
 original_log="..\\Stage8\\NASA-iPSC-1993-3.1-cln.SWF"
 Log_load80_1=[]
 Log_load80_2=[]
@@ -426,6 +427,28 @@ def UserDistributionGraphs(Data1,Data2,Data3,Data,load):
     ax4.plot(Data)
     return 
 
+def LocalityOfSampling(Time,attr,title):
+    fig,(ax1,ax2)=plt.subplots(1,2)
+    fig.suptitle("Plot of job sizes as function of submit times "+title)
+    ax1.set_title('Original Data')
+    ax2.set_title('Scrambled Data')
+    ax1.set_xscale('log',base=2)
+    ax2.set_xscale('log',base=2)
+    ax1.scatter(Time,attr,marker='.',color='crimson',alpha=0.1)
+    ax1.set_xlabel('Time in Seconds')
+    ax2.set_xlabel('Time in Seconds')
+    ax1.set_ylabel('Job Size')
+    np.random.shuffle(attr)
+    ax2.scatter(Time,attr,marker='.',color='crimson',alpha=0.1)
+   # ax1.set_xscale('log',base=2)
+    # c=list(zip(Time,attribute))
+    # random.shuffle(c)
+    # Time, attribute = zip(*c)
+    # ax2.set_title('Scrambled Data')
+    # ax2.plot(Time,attribute)
+    # ax2.set_xscale('log',base=2)    
+    plt.show()
+    
 # load all traces to lists
 with open(outputload80_1, "r") as output1:
     for row in output1.readlines():
@@ -512,19 +535,19 @@ Original_Log=AdjustThinkTimes(Original_Log)
 
 
 # Generate User Distribution lists and pdf
-Users_Distribution_load80_1=UserDistribution(Log_load80_1)
-Users_Distribution_load80_2=UserDistribution(Log_load80_2)
-Users_Distribution_load80_3=UserDistribution(Log_load80_3)
-Users_Distribution_load100_1=UserDistribution(Log_load100_1)
-Users_Distribution_load100_2=UserDistribution(Log_load100_2)
-Users_Distribution_load100_3=UserDistribution(Log_load100_3)
-Users_Distribution_load120_1=UserDistribution(Log_load120_1)
-Users_Distribution_load120_2=UserDistribution(Log_load120_2)
-Users_Distribution_load120_3=UserDistribution(Log_load120_3)
-Users_Distribution=UserDistribution(Original_Log)
-UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
-UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
-UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
+# Users_Distribution_load80_1=UserDistribution(Log_load80_1)
+# Users_Distribution_load80_2=UserDistribution(Log_load80_2)
+# Users_Distribution_load80_3=UserDistribution(Log_load80_3)
+# Users_Distribution_load100_1=UserDistribution(Log_load100_1)
+# Users_Distribution_load100_2=UserDistribution(Log_load100_2)
+# Users_Distribution_load100_3=UserDistribution(Log_load100_3)
+# Users_Distribution_load120_1=UserDistribution(Log_load120_1)
+# Users_Distribution_load120_2=UserDistribution(Log_load120_2)
+# Users_Distribution_load120_3=UserDistribution(Log_load120_3)
+# Users_Distribution=UserDistribution(Original_Log)
+# UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
+# UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
+# UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
 
 # Generate Think Times lists and pdf
 # Thinktime_data_load80_1,Thinktimes_pdf_load80_1=ThinkTimes(Log_load80_1)
@@ -542,29 +565,39 @@ UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_
 #ECDFsCompare(Thinktime_data_load120_1, Thinktime_data_load120_2, Thinktime_data_load120_3, Thinktime_data, 120, 'Think Times')
 
 # Generate Job Sizes lists and pdf
-# JobSizes_data_load80_1,JobSizes_pdf_load80_1=JobSizes(Log_load80_1)
-# JobSizes_data_load80_2,JobSizes_pdf_load80_2=JobSizes(Log_load80_2)
-# JobSizes_data_load80_3,JobSizes_pdf_load80_3=JobSizes(Log_load80_3)
-# JobSizes_data_load100_1,JobSizes_pdf_load100_1=JobSizes(Log_load100_1)
-# JobSizes_data_load100_2,JobSizes_pdf_load100_2=JobSizes(Log_load100_2)
-# JobSizes_data_load100_3,JobSizes_pdf_load100_3=JobSizes(Log_load100_3)
-# JobSizes_data_load120_1,JobSizes_pdf_load120_1=JobSizes(Log_load120_1)
-# JobSizes_data_load120_2,JobSizes_pdf_load120_2=JobSizes(Log_load120_2)
-# JobSizes_data_load120_3,JobSizes_pdf_load120_3=JobSizes(Log_load120_3)
-# JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
+JobSizes_data_load80_1,JobSizes_pdf_load80_1=JobSizes(Log_load80_1)
+JobSizes_data_load80_2,JobSizes_pdf_load80_2=JobSizes(Log_load80_2)
+JobSizes_data_load80_3,JobSizes_pdf_load80_3=JobSizes(Log_load80_3)
+JobSizes_data_load100_1,JobSizes_pdf_load100_1=JobSizes(Log_load100_1)
+JobSizes_data_load100_2,JobSizes_pdf_load100_2=JobSizes(Log_load100_2)
+JobSizes_data_load100_3,JobSizes_pdf_load100_3=JobSizes(Log_load100_3)
+JobSizes_data_load120_1,JobSizes_pdf_load120_1=JobSizes(Log_load120_1)
+JobSizes_data_load120_2,JobSizes_pdf_load120_2=JobSizes(Log_load120_2)
+JobSizes_data_load120_3,JobSizes_pdf_load120_3=JobSizes(Log_load120_3)
+JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
 # Generate Submit Times lists and pdf
-# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
+LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
+LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
+LocalityOfSampling(SubmitTimes_data_load80_3, JobSizes_data_load80_3, "80% load third trace")
+LocalityOfSampling(SubmitTimes_data_load100_1, JobSizes_data_load100_1, "100% load first trace")
+LocalityOfSampling(SubmitTimes_data_load100_2, JobSizes_data_load100_2, "100% load second trace")
+LocalityOfSampling(SubmitTimes_data_load100_3, JobSizes_data_load100_3, "100% load third trace")
+LocalityOfSampling(SubmitTimes_data_load120_1, JobSizes_data_load120_1, "120% load first trace")
+LocalityOfSampling(SubmitTimes_data_load120_2, JobSizes_data_load120_2, "120% load second trace")
+LocalityOfSampling(SubmitTimes_data_load120_3, JobSizes_data_load120_3, "120% load third trace")
+LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 # Generate Wait Times lists and pf
 # WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
 # WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
