@@ -25,6 +25,21 @@ Log_load120_2=[]
 Log_load120_3=[]
 Original_Log=[]
 
+def PlotSubmission(SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF,Days):
+    fig,(ax1,ax2,ax3,ax4)=plt.subplots(1,4)
+    ax1.set_xlabel(str(Days)+"days scale")
+    ax1.set_ylabel("PDF")
+    ax1.plot(SubmissionRatePDF.keys(),SubmissionRatePDF.values())
+    ax2.set_xlabel(str(Days)+"days scale")
+    ax2.set_ylabel("CDF")
+    ax2.plot(SubmissionRateCDF.keys(),SubmissionRateCDF.values())
+    ax3.set_xlabel(str(Days)+"days scale")
+    ax3.set_ylabel("ECDF")
+    ax3.plot(SubmissionRateECDF.keys(),SubmissionRateECDF.values())
+    ax4.set_xlabel(str(Days)+" days scale")
+    ax4.set_ylabel("Submissions")
+    ax4.plot(SubmissionRate.keys(),SubmissionRate.values())
+
 def AdjustThinkTimes(Log):
     NewLog=[]
     Users=dict()
@@ -448,7 +463,38 @@ def LocalityOfSampling(Time,attr,title):
     # ax2.plot(Time,attribute)
     # ax2.set_xscale('log',base=2)    
     plt.show()
-    
+
+def CreateSubmissionRate(Data,Rate):
+  PeriodOfTime=1
+  SubmissionRate=dict()
+  SubmissionRatePDF=dict()
+  SubmissionRateCDF=dict()
+  SubmissionRateECDF=dict()
+  for r in Data:      
+      row_split_list=r.split()
+      if Rate*PeriodOfTime>=int(row_split_list[1]):
+          if PeriodOfTime in SubmissionRate:
+              SubmissionRate[PeriodOfTime]+=1
+          else:
+              SubmissionRate.setdefault(PeriodOfTime,1)
+      else:
+          PeriodOfTime+=1
+          SubmissionRate.setdefault(PeriodOfTime,1)
+
+  for key in SubmissionRate:
+      SubmissionRatePDF.setdefault(key,SubmissionRate[key]/len(Data))
+        
+  i=0
+  for key in SubmissionRate:
+      if i==0:
+       SubmissionRateCDF.setdefault(key,SubmissionRatePDF[key])
+       SubmissionRateECDF.setdefault(key,1-SubmissionRateCDF[key]) 
+      else:
+       SubmissionRateCDF.setdefault(key,SubmissionRatePDF[key]+SubmissionRateCDF[key-1])
+       SubmissionRateECDF.setdefault(key,1-SubmissionRateCDF[key]) 
+      i+=1             
+  return SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF       
+
 # load all traces to lists
 with open(outputload80_1, "r") as output1:
     for row in output1.readlines():
@@ -535,19 +581,19 @@ Original_Log=AdjustThinkTimes(Original_Log)
 
 
 # Generate User Distribution lists and pdf
-Users_Distribution_load80_1=UserDistribution(Log_load80_1)
-Users_Distribution_load80_2=UserDistribution(Log_load80_2)
-Users_Distribution_load80_3=UserDistribution(Log_load80_3)
-Users_Distribution_load100_1=UserDistribution(Log_load100_1)
-Users_Distribution_load100_2=UserDistribution(Log_load100_2)
-Users_Distribution_load100_3=UserDistribution(Log_load100_3)
-Users_Distribution_load120_1=UserDistribution(Log_load120_1)
-Users_Distribution_load120_2=UserDistribution(Log_load120_2)
-Users_Distribution_load120_3=UserDistribution(Log_load120_3)
-Users_Distribution=UserDistribution(Original_Log)
-UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
-UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
-UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
+#Users_Distribution_load80_1=UserDistribution(Log_load80_1)
+#Users_Distribution_load80_2=UserDistribution(Log_load80_2)
+#Users_Distribution_load80_3=UserDistribution(Log_load80_3)
+#Users_Distribution_load100_1=UserDistribution(Log_load100_1)
+#Users_Distribution_load100_2=UserDistribution(Log_load100_2)
+#Users_Distribution_load100_3=UserDistribution(Log_load100_3)
+#Users_Distribution_load120_1=UserDistribution(Log_load120_1)
+#Users_Distribution_load120_2=UserDistribution(Log_load120_2)
+#Users_Distribution_load120_3=UserDistribution(Log_load120_3)
+#Users_Distribution=UserDistribution(Original_Log)
+#UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
+#UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
+#UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
 
 # Generate Think Times lists and pdf
 # Thinktime_data_load80_1,Thinktimes_pdf_load80_1=ThinkTimes(Log_load80_1)
@@ -690,3 +736,7 @@ UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_
 # WeeklyCyclesLoad120_3=WeeklyCycles(Log_load120_3)
 # WeeklyCyclesO=WeeklyCycles(Original_Log)
 # ShowWeeklyCyclesGraph(WeeklyCyclesLoad80_1, WeeklyCyclesLoad80_2, WeeklyCyclesLoad80_3, WeeklyCyclesLoad100_1, WeeklyCyclesLoad100_2, WeeklyCyclesLoad100_3, WeeklyCyclesLoad120_1, WeeklyCyclesLoad120_2, WeeklyCyclesLoad120_3, WeeklyCyclesO)
+
+Days=1
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days)
