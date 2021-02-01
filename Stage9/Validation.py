@@ -25,8 +25,9 @@ Log_load120_2=[]
 Log_load120_3=[]
 Original_Log=[]
 
-def PlotSubmission(SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF,Days):
+def PlotSubmission(SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF,Days,Load,Log):
     fig,(ax1,ax2,ax3,ax4)=plt.subplots(1,4)
+    ax1.set_title("Load "+str(Load)+", Log "+str(Log))
     ax1.set_xlabel(str(Days)+"days scale")
     ax1.set_ylabel("PDF")
     ax1.plot(SubmissionRatePDF.keys(),SubmissionRatePDF.values())
@@ -739,4 +740,29 @@ Original_Log=AdjustThinkTimes(Original_Log)
 
 Days=1
 SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60)
-PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,1)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,2)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,3)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,1)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,2)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,3)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,1)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,2)
+
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,3)
+
