@@ -5,9 +5,9 @@ import scipy.io
 import pandas as pd
 #from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cluster import KMeans
-#import seaborn as sns
+import seaborn as sns
 #from sklearn.cluster import SpectralClustering
-#from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN
 from sklearn.metrics import silhouette_score
 import warnings
 warnings.filterwarnings("ignore")
@@ -162,7 +162,7 @@ for key in list(dic):
 
 kmeans = KMeans(n_clusters=7, random_state=0).fit(df_[features])
 df_['kmeans_cluster'] = kmeans.labels_
-#sns.pairplot(df_,hue='kmeans_cluster',palette='tab10')
+sns.pairplot(df_,hue='kmeans_cluster',palette='tab10',diag_kind="hist")
 print('Kmean Score:',silhouette_score(df_[['Runtime', 'Interarrival_Time', 'Job_Size', 'Think_Time']],df_['kmeans_cluster']))
 i=0
 for j in df_.iterrows(): 
@@ -180,6 +180,23 @@ for j in df_.iterrows():
         cluster5.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
     if df_.loc[df_.index[i],'kmeans_cluster']==6:
         cluster6.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+    i+=1
+# i=0
+# for j in df_.iterrows(): 
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==0:
+#         cluster0.setdefault("User"+str(i+1),(ResidenceTimes["User"+str(i+1)][0][0]).item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==1:
+#         cluster1.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==2:
+#         cluster2.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==3:
+#         cluster3.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==4:
+#         cluster4.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==5:
+#         cluster5.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
+#     if df_.loc[df_.index[i],'DBSCAN_clusters']==6:
+#         cluster6.setdefault("User"+str(i+1),ResidenceTimes["User"+str(i+1)][0][0].item())
     i+=1
 
 cluster0=dict(sorted(cluster0.items(), key=lambda item: item[1]))

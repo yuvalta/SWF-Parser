@@ -1,0 +1,9 @@
+function D = generate_data()
+
+RuntimesRep=double(load('RuntimesRep.mat').a);
+Runtimes=double(load('Runtimes.mat').a);
+Runtimes=Runtimes(:)
+Probs=double(load('Probs.mat').a);
+D = [Runtimes(0:21) 1*ones(22,1);
+D2(:,1) D2(:,2) 2*ones(size(D2,1),1)];
+end

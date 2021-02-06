@@ -4,6 +4,9 @@ import pickle
 import math
 from scipy.stats import fisk
 from scipy.stats import norm
+import statsmodels.api as sm
+import pylab
+import scipy.stats as stats
 from mpl_toolkits import mplot3d
 import scipy.io
 
@@ -82,7 +85,9 @@ with open("RunTimes",'rb') as f:
 RuntimesRep=np.array(RuntimesRep).reshape(-1,1)
 #scipy.io.savemat('RuntimesRep.mat',dict("Label","Runtime"))
 
+
 Runtimes=np.array(Runtimes).reshape(-1,1)
+Runtimes=Runtimes[:,0]
 #mdic={"a":Runtimes}
 #scipy.io.savemat('Runtimes.mat',mdic)
 #mdic={"a":Probs}
@@ -115,22 +120,33 @@ logistic=fisk.pdf(Runtimes,1,loc=21.122,scale=50.15)
 #     dist.append((logistic[i]+gauss1[i]))
  
 #fig = plt.figure()
-plt.subplot(2, 1, 1)
-plt.title("Gaussian")
-plt.plot(Runtimes, gaussian, lw=3, alpha=2.5)
-plt.xscale('log',base=2)
+# plt.subplot(2, 1, 1)
+# plt.title("Gaussian")
+# plt.plot(Runtimes, gaussian, lw=3, alpha=2.5)
+# plt.xscale('log',base=2)
 
-plt.subplot(2, 1, 2)
+# plt.subplot(2, 1, 2)
 
-plt.title("LogLogistic")
-plt.plot(Runtimes, logistic, lw=3, alpha=2.5)
-plt.xscale('log',base=2)
-plt.tight_layout()
-plt.show()
+# plt.title("LogLogistic")
+# plt.plot(Runtimes, logistic, lw=3, alpha=2.5)
+# plt.xscale('log',base=2)
+# plt.tight_layout()
+# plt.show()
+
+# measurements = np.random.normal(loc = 20, scale = 5, size=100)   
+
+# stats.probplot(Runtimes, plot=plt)
+
+pylab.show()
+# fig = sm.qqplot(Runtimes)
+# plt.show()
+
 dist=[]
+
 for i in range(len(gaussian)):
     dist.append((logistic[i]+gaussian[i])/2)
-#dist=np.concatenate((gaussian,logistic))
+# dist=np.concatenate((gaussian,logistic))
+
 plt.title("The two distributions")
 plt.xscale('log',base=2)
 plt.tight_layout()
@@ -139,3 +155,6 @@ plt.fill(Runtimes,dist,color="blue")
 plt.plot(Runtimes,Probs,lw=3,alpha=2.5,label="Probabilties",color="red",linestyle='-')
 plt.fill(Runtimes,Probs,color="red")
 plt.legend(loc="upper right")
+
+
+
