@@ -119,7 +119,7 @@ def AddWaitTimes(Trace):
   while i<len(Trace):
      row_split1=Trace[i-1].split()
      row_split2=Trace[i].split()
-     WaitTime=int(row_split1[1])+int(row_split1[3])-int(row_split2[1])
+     WaitTime=int(row_split1[1])+int(row_split1[2])+int(row_split1[3])-int(row_split2[1])
      if WaitTime>=0:
          row_split1[2]=str(WaitTime)
      else:

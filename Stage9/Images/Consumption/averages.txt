@@ -1,0 +1,4 @@
+average load for 80% load traces = 15.27%
+average load for 100% load traces = 15.82%
+average load for 120% load traces = 16.13% 
+average load for the original trace = 49.19%
