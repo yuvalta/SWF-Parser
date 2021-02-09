@@ -106,7 +106,50 @@ def GenerateUsers(ShortTermUsers,UsersDict_,UsersWeek_):
         Rand_Week=np.random.choice(UsersWeek_[str(number)])
         newdict.setdefault(str(number),GetJobsInWeek(Rand_Week, UsersDict_[str(number)]))
     return newdict
-   
+
+def AdjustWaitTimes2(Trace):
+  AvailableProcs=dict()
+  i=0
+  while i<=15000000:
+      AvailableProcs.setdefault(i,128)
+  i=1
+  Trace1=[]
+  row=Trace[0].split()
+  row[2]='0'
+  end_time=int(row[1])+int(row[3])
+  submit_time=int(row[1])
+  numofprocs=int(row[4])
+  while submit_time <= end_time:
+      AvailableProcs[submit_time]+=numofprocs
+      submit_time+=1
+  r=''
+  for v in row:
+      r+=(v+"   ")
+  Trace1.append(r)    
+  while i < len(Trace):
+      row_split=Trace[i].split()
+      run_time=int(row_split[3])
+      submit_time=int(row_split[1])
+      numofprocs=int(row_split[4])
+      waittime=0
+      while True:
+         if (AvailableProcs[submit_time+waittime]-numofprocs) >= 0:
+             break
+         else:
+             waittime+=1
+      starttime=submit_time+waittime
+      while starttime<=(starttime+run_time):
+          if starttime < len(AvailableProcs):
+              AvailableProcs[starttime]+=numofprocs
+          starttime+=1
+      row_split[2]=str(waittime)
+      r=''
+      for v in row_split:
+          r+=(v+"   ")
+      Trace1.append(r)   
+      i+=1
+  return Trace1
+
 def AddWaitTimes(Trace):
   i=1
   Trace1=[]
@@ -117,15 +160,15 @@ def AddWaitTimes(Trace):
       r+=(v+"   ")
   Trace1.append(r)    
   while i<len(Trace):
-     row_split1=Trace[i-1].split()
+     row_split1=Trace1[i-1].split()
      row_split2=Trace[i].split()
      WaitTime=int(row_split1[1])+int(row_split1[2])+int(row_split1[3])-int(row_split2[1])
      if WaitTime>=0:
-         row_split1[2]=str(WaitTime)
+         row_split2[2]=str(WaitTime)
      else:
-         row_split1[2]='0'
+         row_split2[2]='0'
      r=""    
-     for v in row_split1:
+     for v in row_split2:
         r+=(v+"   ")
      Trace1.append(r)   
      i+=1    
