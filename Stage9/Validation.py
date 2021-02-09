@@ -100,7 +100,7 @@ def PlotSubmission(SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,Submission
     ax2.plot(SubmissionRateCDF.keys(),SubmissionRateCDF.values())
     ax3.set_xlabel(str(Days)+"days scale")
     ax3.set_ylabel("ECDF")
-    ax3.plot(SubmissionRateECDF.keys(),SubmissionRateECDF.values())
+    ax3.plot(SubmissionRateECDF.x,SubmissionRateECDF.y)
     ax4.set_xlabel(str(Days)+" days scale")
     ax4.set_ylabel("Submissions")
     ax4.plot(SubmissionRate.keys(),SubmissionRate.values())
@@ -545,14 +545,13 @@ def CreateSubmissionRate(Data,Rate):
           if PeriodOfTime in SubmissionRate:
               SubmissionRate[PeriodOfTime]+=1
           else:
-              SubmissionRate.setdefault(PeriodOfTime,1)
+              SubmissionRate.setdefault(PeriodOfTime,1)    
       else:
           PeriodOfTime+=1
           SubmissionRate.setdefault(PeriodOfTime,1)
 
   for key in SubmissionRate:
       SubmissionRatePDF.setdefault(key,SubmissionRate[key]/len(Data))
-        
   i=0
   for key in SubmissionRate:
       if i==0:
@@ -561,7 +560,8 @@ def CreateSubmissionRate(Data,Rate):
       else:
        SubmissionRateCDF.setdefault(key,SubmissionRatePDF[key]+SubmissionRateCDF[key-1])
        SubmissionRateECDF.setdefault(key,1-SubmissionRateCDF[key]) 
-      i+=1             
+      i+=1  
+  SubmissionRateECDF=ECDF(list(SubmissionRate.values()))           
   return SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF       
 
 # load all traces to lists
@@ -626,6 +626,7 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # PDFsCompare(Interarrivals_pdf_load120_1, Interarrivals_pdf_load120_2, Interarrivals_pdf_load120_3, Interarrivals_pdf, 120, 'Interarrival Times')
 
 # Generate Consumption lists and pdf
+
 ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
 ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
 ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
@@ -639,6 +640,37 @@ ConsumptionData,avg_Original=Consumption(Original_Log,True)
 LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
 LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
 LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
+
+
+# ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
+# ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
+# ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
+# ConsumptionData_load100_1,avg_load100_1=Consumption(Log_load100_1,False)
+# ConsumptionData_load100_2,avg_load100_2=Consumption(Log_load100_2,False)
+# ConsumptionData_load100_3,avg_load100_3=Consumption(Log_load100_3,False)
+# ConsumptionData_load120_1,avg_load120_1=Consumption(Log_load120_1,False)
+# ConsumptionData_load120_2,avg_load120_2=Consumption(Log_load120_2,False)
+# ConsumptionData_load120_3,avg_load120_3=Consumption(Log_load120_3,False)
+# ConsumptionData,avg_Original=Consumption(Original_Log,True)
+# LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
+# LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
+# LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
+
+#ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
+#ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
+#ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
+#ConsumptionData_load100_1,avg_load100_1=Consumption(Log_load100_1,False)
+#ConsumptionData_load100_2,avg_load100_2=Consumption(Log_load100_2,False)
+#ConsumptionData_load100_3,avg_load100_3=Consumption(Log_load100_3,False)
+#ConsumptionData_load120_1,avg_load120_1=Consumption(Log_load120_1,False)
+#ConsumptionData_load120_2,avg_load120_2=Consumption(Log_load120_2,False)
+#ConsumptionData_load120_3,avg_load120_3=Consumption(Log_load120_3,False)
+#ConsumptionData,avg_Original=Consumption(Original_Log,True)
+#LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
+#LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
+#LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
+
+
     
 # Generate Runtime lists and pdf
 # Runtime_data_load80_1,Runtimes_pdf_load80_1=Runtimes(Log_load80_1)
@@ -657,6 +689,7 @@ LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, Consumption
 
 
 # Generate User Distribution lists and pdf
+
 # Users_Distribution_load80_1=UserDistribution(Log_load80_1)
 # Users_Distribution_load80_2=UserDistribution(Log_load80_2)
 # Users_Distribution_load80_3=UserDistribution(Log_load80_3)
@@ -670,6 +703,21 @@ LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, Consumption
 # UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
 # UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
 # UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
+
+#Users_Distribution_load80_1=UserDistribution(Log_load80_1)
+#Users_Distribution_load80_2=UserDistribution(Log_load80_2)
+#Users_Distribution_load80_3=UserDistribution(Log_load80_3)
+#Users_Distribution_load100_1=UserDistribution(Log_load100_1)
+#Users_Distribution_load100_2=UserDistribution(Log_load100_2)
+#Users_Distribution_load100_3=UserDistribution(Log_load100_3)
+#Users_Distribution_load120_1=UserDistribution(Log_load120_1)
+#Users_Distribution_load120_2=UserDistribution(Log_load120_2)
+#Users_Distribution_load120_3=UserDistribution(Log_load120_3)
+#Users_Distribution=UserDistribution(Original_Log)
+#UserDistributionGraphs(Users_Distribution_load80_1, Users_Distribution_load80_2, Users_Distribution_load80_3, Users_Distribution, 80)
+#UserDistributionGraphs(Users_Distribution_load100_1, Users_Distribution_load100_2, Users_Distribution_load100_3, Users_Distribution, 100)
+#UserDistributionGraphs(Users_Distribution_load120_1, Users_Distribution_load120_2, Users_Distribution_load120_3, Users_Distribution, 120)
+
 
 # Generate Think Times lists and pdf
 # Thinktime_data_load80_1,Thinktimes_pdf_load80_1=ThinkTimes(Log_load80_1)
@@ -813,31 +861,31 @@ LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 # WeeklyCyclesO=WeeklyCycles(Original_Log)
 # ShowWeeklyCyclesGraph(WeeklyCyclesLoad80_1, WeeklyCyclesLoad80_2, WeeklyCyclesLoad80_3, WeeklyCyclesLoad100_1, WeeklyCyclesLoad100_2, WeeklyCyclesLoad100_3, WeeklyCyclesLoad120_1, WeeklyCyclesLoad120_2, WeeklyCyclesLoad120_3, WeeklyCyclesO)
 
-# Days=1
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,1)
+Days=1
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,2)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,3)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,3)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,1)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,2)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,3)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,3)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,1)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,2)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,3)
+SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60)
+PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,3)
 
