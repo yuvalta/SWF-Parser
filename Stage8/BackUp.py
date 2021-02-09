@@ -180,7 +180,7 @@ CurrentUsers1=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 CurrentUsers2=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 CurrentUsers3=[3,3,3,3,2,2,2,3,3,2,3,3,2,2]
 data=[]
-cfg_file = "Input2//config_file1.txt"
+cfg_file = "Input2//config_file2.txt"
 ResidenceTimes=dict()
 NewUsersPerWeek=dict()
 UsersDict=dict()
@@ -222,7 +222,7 @@ with open(cfg_file, "r") as cfg_file:
 # Multiply the number of new users per week with the given load to generate more load on the system
 load/=100
 for key in NewUsersPerWeek:
-    splittednum=math.modf((NewUsersPerWeek[key]*load*3))
+    splittednum=math.modf((NewUsersPerWeek[key]*load*50))
     NewUsersPerWeek[key]=int(splittednum[1])
     probability=splittednum[0]
     if np.random.random()<=probability:
@@ -268,30 +268,28 @@ for key in UsersDict:
 # select at random a certain number of new temporary users to add
 # in each week of the generated workload. Randomize the actual number of new users,
 # with the average being the number of new users per week in the original workload log.
-while len(trace1)<load*18000 and len(trace2)<load*18000 and len(trace3)<load*18000:
-    i=0
-    ID=1
-    for key in NewUsersPerWeek:
-        index=int(key.replace('Week',''))
-        NumOfUsers=NewUsersPerWeek[key]
-        if NumOfUsers<4:
-            NumOfUsers=round(average)
-        for j in range(int(NumOfUsers)):
-            User1=str(np.random.choice(UsersNumbers))
-            jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1,ID1)
-            trace1+=jobs1
-            ID1+=1
-        for j in range(int(NumOfUsers)):
-            User2=str(np.random.choice(UsersNumbers))
-            jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2,ID2)
-            trace2+=jobs2
-            ID2+=1
-        for j in range(int(NumOfUsers)):
-            User3=str(np.random.choice(UsersNumbers))
-            jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3,ID3)
-            trace3+=jobs3
-            ID3+=1
-        i+=1
+i=0
+for key in NewUsersPerWeek:
+    index=int(key.replace('Week',''))
+    NumOfUsers=NewUsersPerWeek[key]
+    if NumOfUsers<4:
+        NumOfUsers=round(average)
+    for j in range(int(NumOfUsers)):
+        User1=str(np.random.choice(UsersNumbers))
+        jobs1=Sync(i,UsersDict[str(User1)],UsersWeek[str(User1)],CurrentUsers1,ID1)
+        trace1+=jobs1
+        ID1+=1
+    for j in range(int(NumOfUsers)):
+        User2=str(np.random.choice(UsersNumbers))
+        jobs2=Sync(i,UsersDict[str(User2)],UsersWeek[str(User2)],CurrentUsers2,ID2)
+        trace2+=jobs2
+        ID2+=1
+    for j in range(int(NumOfUsers)):
+        User3=str(np.random.choice(UsersNumbers))
+        jobs3=Sync(i,UsersDict[str(User3)],UsersWeek[str(User3)],CurrentUsers3,ID3)
+        trace3+=jobs3
+        ID3+=1
+    i+=1
 trace1=ThinkTimes(trace1)
 trace2=ThinkTimes(trace2)
 trace3=ThinkTimes(trace3)
@@ -301,6 +299,6 @@ mergeSort(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-ExportTraces(trace1, "outputload100_1.txt") #the file will be routed to Stage9/Output
-ExportTraces(trace2, "outputload100_2.txt")
-ExportTraces(trace3, "outputload100_3.txt")
+ExportTraces(trace1, "outputload120_1.txt") #the file will be routed to Stage9/Output
+ExportTraces(trace2, "outputload120_2.txt")
+ExportTraces(trace3, "outputload120_3.txt")

@@ -147,6 +147,11 @@ def Interarrivals(Log):
         Prev_submit=Submit_time
     for time in Interarrivals_counter:
         Interarrivals_pdf.setdefault(time,Interarrivals_counter[time]/n)
+    for i in range(len(Interarrivals_pdf.keys())):
+        num=0
+        for j in range(i):
+            num+=Interarrivals_pdf[j]
+        Interarrivals_pdf[i]=num
     return Interarrivals_data,Interarrivals_pdf
 
 def Consumption(Log,boool):
@@ -189,6 +194,11 @@ def Runtimes(Log):
         n+=1
     for time in Runtimes_counter.keys():
         Runtimes_pdf.setdefault(time,Runtimes_counter[time]/n)
+    for i in range(len(Runtimes_pdf.keys())):
+        num=0
+        for j in range(i):
+            num+=Runtimes_pdf[j]
+        Runtimes_pdf[i]=num
     return Runtime_data,Runtimes_pdf
 
 def UserDistribution(Log):
@@ -320,13 +330,13 @@ def LoadMeasurment(Data1,Data2,Data3,Original,title):
     plt.show()
     return
 
-def PDFsCompare(pdf1,pdf2,pdf3,original,load,attrib):
+def CDFsCompare(pdf1,pdf2,pdf3,original,load,attrib):
     fig, (ax1, ax2,ax3,ax4) = plt.subplots(1, 4)
-    fig.suptitle('PDF Of '+attrib+' with '+str(load)+'% Load')
-    ax1.set_title('pdf for the first trace')
-    ax2.set_title('pdf for the second trace')
-    ax3.set_title('pdf for the third trace')
-    ax4.set_title('pdf for the original trace')
+    fig.suptitle('CDF Of '+attrib+' with '+str(load)+'% Load')
+    ax1.set_title('cdf for the first trace')
+    ax2.set_title('cdf for the second trace')
+    ax3.set_title('cdf for the third trace')
+    ax4.set_title('cdf for the original trace')
     Y1=list(pdf1.values())
     Y2=list(pdf2.values())
     Y3=list(pdf3.values())
@@ -600,60 +610,51 @@ with open(original_log, "r") as swf_file:
         Original_Log.append(row)
 
 Original_Log=AdjustThinkTimes(Original_Log)
-#Log_load80_1=AdjustWaitTimes2(Log_load80_1)
-# Log_load80_2=AdjustWaitTimes2(Log_load80_2)
-# Log_load80_3=AdjustWaitTimes2(Log_load80_3)
-# Log_load100_1=AdjustWaitTimes2(Log_load100_1)
-# Log_load100_2=AdjustWaitTimes2(Log_load100_2)
-# Log_load100_3=AdjustWaitTimes2(Log_load100_3)
-# Log_load120_1=AdjustWaitTimes2(Log_load120_1)
-# Log_load120_2=AdjustWaitTimes2(Log_load120_2)
-# Log_load120_3=AdjustWaitTimes2(Log_load120_3)
 #Generate interarrivals lists and pdf
-# Interarrivals_data_load80_1,Interarrivals_pdf_load80_1=Interarrivals(Log_load80_1)
-# Interarrivals_data_load80_2,Interarrivals_pdf_load80_2=Interarrivals(Log_load80_2)
-# Interarrivals_data_load80_3,Interarrivals_pdf_load80_3=Interarrivals(Log_load80_3)
-# Interarrivals_data_load100_1,Interarrivals_pdf_load100_1=Interarrivals(Log_load100_1)
-# Interarrivals_data_load100_2,Interarrivals_pdf_load100_2=Interarrivals(Log_load100_2)
-# Interarrivals_data_load100_3,Interarrivals_pdf_load100_3=Interarrivals(Log_load100_3)
-# Interarrivals_data_load120_1,Interarrivals_pdf_load120_1=Interarrivals(Log_load100_1)
-# Interarrivals_data_load120_2,Interarrivals_pdf_load120_2=Interarrivals(Log_load120_2)
-# Interarrivals_data_load120_3,Interarrivals_pdf_load120_3=Interarrivals(Log_load120_3)
-# Interarrivals_data,Interarrivals_pdf=Interarrivals(Original_Log)
+Interarrivals_data_load80_1,Interarrivals_pdf_load80_1=Interarrivals(Log_load80_1)
+Interarrivals_data_load80_2,Interarrivals_pdf_load80_2=Interarrivals(Log_load80_2)
+Interarrivals_data_load80_3,Interarrivals_pdf_load80_3=Interarrivals(Log_load80_3)
+Interarrivals_data_load100_1,Interarrivals_pdf_load100_1=Interarrivals(Log_load100_1)
+Interarrivals_data_load100_2,Interarrivals_pdf_load100_2=Interarrivals(Log_load100_2)
+Interarrivals_data_load100_3,Interarrivals_pdf_load100_3=Interarrivals(Log_load100_3)
+Interarrivals_data_load120_1,Interarrivals_pdf_load120_1=Interarrivals(Log_load100_1)
+Interarrivals_data_load120_2,Interarrivals_pdf_load120_2=Interarrivals(Log_load120_2)
+Interarrivals_data_load120_3,Interarrivals_pdf_load120_3=Interarrivals(Log_load120_3)
+Interarrivals_data,Interarrivals_pdf=Interarrivals(Original_Log)
 
-# PDFsCompare(Interarrivals_pdf_load80_1, Interarrivals_pdf_load80_2, Interarrivals_pdf_load80_3, Interarrivals_pdf, 80, 'Interarrival Times')
-# PDFsCompare(Interarrivals_pdf_load100_1, Interarrivals_pdf_load100_2, Interarrivals_pdf_load100_3, Interarrivals_pdf, 100, 'Interarrival Times')
-# PDFsCompare(Interarrivals_pdf_load120_1, Interarrivals_pdf_load120_2, Interarrivals_pdf_load120_3, Interarrivals_pdf, 120, 'Interarrival Times')
+CDFsCompare(Interarrivals_pdf_load80_1, Interarrivals_pdf_load80_2, Interarrivals_pdf_load80_3, Interarrivals_pdf, 80, 'Interarrival Times')
+CDFsCompare(Interarrivals_pdf_load100_1, Interarrivals_pdf_load100_2, Interarrivals_pdf_load100_3, Interarrivals_pdf, 100, 'Interarrival Times')
+CDFsCompare(Interarrivals_pdf_load120_1, Interarrivals_pdf_load120_2, Interarrivals_pdf_load120_3, Interarrivals_pdf, 120, 'Interarrival Times')
 
 # Generate Consumption lists and pdf
-ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
-ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
-ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
-ConsumptionData_load100_1,avg_load100_1=Consumption(Log_load100_1,False)
-ConsumptionData_load100_2,avg_load100_2=Consumption(Log_load100_2,False)
-ConsumptionData_load100_3,avg_load100_3=Consumption(Log_load100_3,False)
-ConsumptionData_load120_1,avg_load120_1=Consumption(Log_load120_1,False)
-ConsumptionData_load120_2,avg_load120_2=Consumption(Log_load120_2,False)
-ConsumptionData_load120_3,avg_load120_3=Consumption(Log_load120_3,False)
-ConsumptionData,avg_Original=Consumption(Original_Log,True)
-LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
-LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
-LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
+# ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
+# ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
+# ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
+# ConsumptionData_load100_1,avg_load100_1=Consumption(Log_load100_1,False)
+# ConsumptionData_load100_2,avg_load100_2=Consumption(Log_load100_2,False)
+# ConsumptionData_load100_3,avg_load100_3=Consumption(Log_load100_3,False)
+# ConsumptionData_load120_1,avg_load120_1=Consumption(Log_load120_1,False)
+# ConsumptionData_load120_2,avg_load120_2=Consumption(Log_load120_2,False)
+# ConsumptionData_load120_3,avg_load120_3=Consumption(Log_load120_3,False)
+# ConsumptionData,avg_Original=Consumption(Original_Log,True)
+# LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
+# LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
+# LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
     
 # Generate Runtime lists and pdf
-# Runtime_data_load80_1,Runtimes_pdf_load80_1=Runtimes(Log_load80_1)
-# Runtime_data_load80_2,Runtimes_pdf_load80_2=Runtimes(Log_load80_2)
-# Runtime_data_load80_3,Runtimes_pdf_load80_3=Runtimes(Log_load80_3)
-# Runtime_data_load100_1,Runtimes_pdf_load100_1=Runtimes(Log_load100_1)
-# Runtime_data_load100_2,Runtimes_pdf_load100_2=Runtimes(Log_load100_2)
-# Runtime_data_load100_3,Runtimes_pdf_load100_3=Runtimes(Log_load100_3)
-# Runtime_data_load120_1,Runtimes_pdf_load120_1=Runtimes(Log_load120_1)
-# Runtime_data_load120_2,Runtimes_pdf_load120_2=Runtimes(Log_load120_2)
-# Runtime_data_load120_3,Runtimes_pdf_load120_3=Runtimes(Log_load120_3)
-# Runtime_data,Runtimes_pdf=Runtimes(Original_Log)
-# PDFsCompare(Runtimes_pdf_load80_1, Runtimes_pdf_load80_2, Runtimes_pdf_load80_3, Runtimes_pdf, 80, 'Runtimes')
-# PDFsCompare(Runtimes_pdf_load100_1, Runtimes_pdf_load100_2, Runtimes_pdf_load100_3, Runtimes_pdf, 100, 'Runtimes')
-# PDFsCompare(Runtimes_pdf_load120_1, Runtimes_pdf_load120_2, Runtimes_pdf_load120_3, Runtimes_pdf, 120, 'Runtimes')
+Runtime_data_load80_1,Runtimes_cdf_load80_1=Runtimes(Log_load80_1)
+Runtime_data_load80_2,Runtimes_cdf_load80_2=Runtimes(Log_load80_2)
+Runtime_data_load80_3,Runtimes_cdf_load80_3=Runtimes(Log_load80_3)
+Runtime_data_load100_1,Runtimes_cdf_load100_1=Runtimes(Log_load100_1)
+Runtime_data_load100_2,Runtimes_cdf_load100_2=Runtimes(Log_load100_2)
+Runtime_data_load100_3,Runtimes_cdf_load100_3=Runtimes(Log_load100_3)
+Runtime_data_load120_1,Runtimes_cdf_load120_1=Runtimes(Log_load120_1)
+Runtime_data_load120_2,Runtimes_cdf_load120_2=Runtimes(Log_load120_2)
+Runtime_data_load120_3,Runtimes_cdf_load120_3=Runtimes(Log_load120_3)
+Runtime_data,Runtimes_cdf=Runtimes(Original_Log)
+CDFsCompare(Runtimes_cdf_load80_1, Runtimes_cdf_load80_2, Runtimes_cdf_load80_3, Runtimes_cdf, 80, 'Runtimes')
+CDFsCompare(Runtimes_cdf_load100_1, Runtimes_cdf_load100_2, Runtimes_cdf_load100_3, Runtimes_cdf, 100, 'Runtimes')
+CDFsCompare(Runtimes_cdf_load120_1, Runtimes_cdf_load120_2, Runtimes_cdf_load120_3, Runtimes_cdf, 120, 'Runtimes')
 
 
 # Generate User Distribution lists and pdf
@@ -682,44 +683,44 @@ LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, Consumption
 # Thinktime_data_load120_2,Thinktimes_pdf_load120_2=ThinkTimes(Log_load120_2)
 # Thinktime_data_load120_3,Thinktimes_pdf_load120_3=ThinkTimes(Log_load120_3)
 # Thinktime_data,Thinktimes_pdf=ThinkTimes(Original_Log)
-#ECDFsCompare(Thinktime_data_load80_1, Thinktime_data_load80_2, Thinktime_data_load80_3, Thinktime_data, 80, 'Think Times')
-#ECDFsCompare(Thinktime_data_load100_1, Thinktime_data_load100_2, Thinktime_data_load100_3, Thinktime_data, 100, 'Think Times')
-#ECDFsCompare(Thinktime_data_load120_1, Thinktime_data_load120_2, Thinktime_data_load120_3, Thinktime_data, 120, 'Think Times')
+# ECDFsCompare(Thinktime_data_load80_1, Thinktime_data_load80_2, Thinktime_data_load80_3, Thinktime_data, 80, 'Think Times')
+# ECDFsCompare(Thinktime_data_load100_1, Thinktime_data_load100_2, Thinktime_data_load100_3, Thinktime_data, 100, 'Think Times')
+# ECDFsCompare(Thinktime_data_load120_1, Thinktime_data_load120_2, Thinktime_data_load120_3, Thinktime_data, 120, 'Think Times')
 
 # Generate Job Sizes lists and pdf
-JobSizes_data_load80_1,JobSizes_pdf_load80_1=JobSizes(Log_load80_1)
-JobSizes_data_load80_2,JobSizes_pdf_load80_2=JobSizes(Log_load80_2)
-JobSizes_data_load80_3,JobSizes_pdf_load80_3=JobSizes(Log_load80_3)
-JobSizes_data_load100_1,JobSizes_pdf_load100_1=JobSizes(Log_load100_1)
-JobSizes_data_load100_2,JobSizes_pdf_load100_2=JobSizes(Log_load100_2)
-JobSizes_data_load100_3,JobSizes_pdf_load100_3=JobSizes(Log_load100_3)
-JobSizes_data_load120_1,JobSizes_pdf_load120_1=JobSizes(Log_load120_1)
-JobSizes_data_load120_2,JobSizes_pdf_load120_2=JobSizes(Log_load120_2)
-JobSizes_data_load120_3,JobSizes_pdf_load120_3=JobSizes(Log_load120_3)
-JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
+# JobSizes_data_load80_1,JobSizes_pdf_load80_1=JobSizes(Log_load80_1)
+# JobSizes_data_load80_2,JobSizes_pdf_load80_2=JobSizes(Log_load80_2)
+# JobSizes_data_load80_3,JobSizes_pdf_load80_3=JobSizes(Log_load80_3)
+# JobSizes_data_load100_1,JobSizes_pdf_load100_1=JobSizes(Log_load100_1)
+# JobSizes_data_load100_2,JobSizes_pdf_load100_2=JobSizes(Log_load100_2)
+# JobSizes_data_load100_3,JobSizes_pdf_load100_3=JobSizes(Log_load100_3)
+# JobSizes_data_load120_1,JobSizes_pdf_load120_1=JobSizes(Log_load120_1)
+# JobSizes_data_load120_2,JobSizes_pdf_load120_2=JobSizes(Log_load120_2)
+# JobSizes_data_load120_3,JobSizes_pdf_load120_3=JobSizes(Log_load120_3)
+# JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
 # Generate Submit Times lists and pdf
-SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
-LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
-LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
-LocalityOfSampling(SubmitTimes_data_load80_3, JobSizes_data_load80_3, "80% load third trace")
-LocalityOfSampling(SubmitTimes_data_load100_1, JobSizes_data_load100_1, "100% load first trace")
-LocalityOfSampling(SubmitTimes_data_load100_2, JobSizes_data_load100_2, "100% load second trace")
-LocalityOfSampling(SubmitTimes_data_load100_3, JobSizes_data_load100_3, "100% load third trace")
-LocalityOfSampling(SubmitTimes_data_load120_1, JobSizes_data_load120_1, "120% load first trace")
-LocalityOfSampling(SubmitTimes_data_load120_2, JobSizes_data_load120_2, "120% load second trace")
-LocalityOfSampling(SubmitTimes_data_load120_3, JobSizes_data_load120_3, "120% load third trace")
-LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
+# LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
+# LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
+# LocalityOfSampling(SubmitTimes_data_load80_3, JobSizes_data_load80_3, "80% load third trace")
+# LocalityOfSampling(SubmitTimes_data_load100_1, JobSizes_data_load100_1, "100% load first trace")
+# LocalityOfSampling(SubmitTimes_data_load100_2, JobSizes_data_load100_2, "100% load second trace")
+# LocalityOfSampling(SubmitTimes_data_load100_3, JobSizes_data_load100_3, "100% load third trace")
+# LocalityOfSampling(SubmitTimes_data_load120_1, JobSizes_data_load120_1, "120% load first trace")
+# LocalityOfSampling(SubmitTimes_data_load120_2, JobSizes_data_load120_2, "120% load second trace")
+# LocalityOfSampling(SubmitTimes_data_load120_3, JobSizes_data_load120_3, "120% load third trace")
+# LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 
 # Generate Wait Times lists and pf
 # WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
