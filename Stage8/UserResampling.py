@@ -223,7 +223,7 @@ CurrentUsers1=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 CurrentUsers2=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 CurrentUsers3=[4,4,3,3,3,2,2,3,3,2,3,4,2,2]
 data=[]
-cfg_file = "Input2//config_file3.txt"
+cfg_file = "Input2//config_file2.txt"
 ResidenceTimes=dict()
 NewUsersPerWeek=dict()
 UsersDict=dict()
@@ -265,7 +265,7 @@ with open(cfg_file, "r") as cfg_file:
 # Multiply the number of new users per week with the given load to generate more load on the system
 load/=100
 for key in NewUsersPerWeek:
-    splittednum=math.modf((NewUsersPerWeek[key]*load))
+    splittednum=math.modf((NewUsersPerWeek[key]*load*3))
     NewUsersPerWeek[key]=int(splittednum[1])
     probability=splittednum[0]
     if np.random.random()<=probability:
@@ -337,8 +337,8 @@ mergeSort(trace3)
 trace1=AddWaitTimes(trace1)
 trace2=AddWaitTimes(trace2)
 trace3=AddWaitTimes(trace3)
-ExportTraces(trace1, "outputload80_1.txt") #the file will be routed to Stage9/Output
-ExportTraces(trace2, "outputload80_2.txt")
-ExportTraces(trace3, "outputload80_3.txt")
+ExportTraces(trace1, "outputload120_1.txt") #the file will be routed to Stage9/Output
+ExportTraces(trace2, "outputload120_2.txt")
+ExportTraces(trace3, "outputload120_3.txt")
 
 
