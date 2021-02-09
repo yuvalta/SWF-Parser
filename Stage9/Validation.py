@@ -24,84 +24,6 @@ Log_load120_2=[]
 Log_load120_3=[]
 Original_Log=[]
 
-def AdjustWaitTimes(Trace):
-  Last=int(Trace[-1].split()[1])+int(Trace[-1].split()[3])
-  AvailableProcs=np.zeros(Last)
-  AvailableProcs=[i+128 for i in AvailableProcs]
-  i=1
-  Trace1=[]
-  row=Trace[0].split()
-  row[2]='0'
-  end_time=int(row[1])+int(row[3])
-  submit_time=int(row[1])
-  while submit_time <= end_time:
-      AvailableProcs[submit_time]-=int(row[4])
-      submit_time+=1
-  r=''
-  for v in row:
-      r+=(v+"   ")
-  Trace1.append(r)    
-  while i<len(Trace):
-      row_split=Trace[i].split()
-      end_time=int(row_split[1])+int(row_split[3])
-      submit_time=int(row_split[1])
-      numOfProcs=int(row_split[4])
-      waittime=0
-      while True:
-         if AvailableProcs[submit_time+waittime]-numOfProcs >= 0:
-             break
-         waittime+=1
-      starttime=submit_time+waittime
-      while starttime<=end_time+waittime:
-          if starttime < len(AvailableProcs):
-              AvailableProcs[starttime]-=numOfProcs
-          starttime+=1
-      row_split[2]=str(waittime)
-      r=''
-      for v in row_split:
-          r+=(v+"   ")
-      Trace1.append(r)   
-      i+=1
-  return Trace1
-
-def AdjustWaitTimes2(Trace):
-  Last=int(Trace[-1].split()[1])+int(Trace[-1].split()[3])
-  AvailableProcs=np.zeros(Last)
-  i=1
-  Trace1=[]
-  row=Trace[0].split()
-  row[2]='0'
-  end_time=int(row[1])+int(row[3])
-  submit_time=int(row[1])
-  while submit_time <= end_time:
-      AvailableProcs[submit_time]=1
-      submit_time+=1
-  r=''
-  for v in row:
-      r+=(v+"   ")
-  Trace1.append(r)    
-  while i<len(Trace):
-      row_split=Trace[i].split()
-      end_time=int(row_split[1])+int(row_split[3])
-      submit_time=int(row_split[1])
-      waittime=0
-      while True:
-         if AvailableProcs[submit_time+waittime]==0:
-             break
-         waittime+=1
-      starttime=submit_time+waittime
-      while starttime<=end_time+waittime:
-          if starttime < len(AvailableProcs):
-              AvailableProcs[starttime]=1
-          starttime+=1
-      row_split[2]=str(waittime)
-      r=''
-      for v in row_split:
-          r+=(v+"   ")
-      Trace1.append(r)   
-      i+=1
-  return Trace1
-
 def AddWaitTimes(Trace):
   i=1
   Trace1=[]
@@ -539,21 +461,14 @@ def ShowWeeklyCyclesGraph(load80_1,load80_2,load80_3,load100_1,load100_2,load100
     return 
 
 def UserDistributionGraphs(Data1,Data2,Data3,Data,load):
-    fig,(ax1,ax2,ax3,ax4)=plt.subplots(1,4)
+    fig,ax1=plt.subplots()
     fig.suptitle("User Distribution Graph")
-    ax1.set_title("First Trace With "+str(load)+"% Load")
-    ax2.set_title("Second Trace With "+str(load)+"% Load")
-    ax3.set_title("Third Trace With "+str(load)+"% Load")
-    ax4.set_title("Original Log")
     ax1.set_ylabel('Number Of Users')
     ax1.set_xlabel('Time in Days')
-    ax2.set_xlabel('Time in Days')
-    ax3.set_xlabel('Time in Days')
-    ax4.set_xlabel('Time in Days')
-    ax1.plot(Data1)
-    ax2.plot(Data2)
-    ax3.plot(Data3)
-    ax4.plot(Data)
+    ax1.plot(Data1,label="First Trace With "+str(load)+"% Load")
+    ax1.plot(Data2,label="Second Trace With "+str(load)+"% Load")
+    ax1.plot(Data3,label="Third Trace With "+str(load)+"% Load")
+    ax1.plot(Data,label="Original Log")
     return 
 
 def LocalityOfSampling(Time,attr,title):
@@ -561,8 +476,6 @@ def LocalityOfSampling(Time,attr,title):
     fig.suptitle("Plot of job sizes as function of submit times "+title)
     ax1.set_title('Original Data')
     ax2.set_title('Scrambled Data')
-    ax1.set_xscale('log',base=2)
-    ax2.set_xscale('log',base=2)
     ax1.scatter(Time,attr,marker='.',color='crimson',alpha=0.1)
     ax1.set_xlabel('Time in Seconds')
     ax2.set_xlabel('Time in Seconds')
@@ -681,9 +594,9 @@ ConsumptionData_load120_1,avg_load120_1=Consumption(Log_load120_1,False)
 ConsumptionData_load120_2,avg_load120_2=Consumption(Log_load120_2,False)
 ConsumptionData_load120_3,avg_load120_3=Consumption(Log_load120_3,False)
 ConsumptionData,avg_Original=Consumption(Original_Log,True)
-#LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
-#LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
-#LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
+LoadMeasurment(ConsumptionData_load80_1, ConsumptionData_load80_2, ConsumptionData_load80_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 80% Load And The Original Trace')
+LoadMeasurment(ConsumptionData_load100_1, ConsumptionData_load100_2, ConsumptionData_load100_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 100% Load And The Original Trace')
+LoadMeasurment(ConsumptionData_load120_1, ConsumptionData_load120_2, ConsumptionData_load120_3, ConsumptionData,'Consumption Graph Of Each One Of The Realistic Traces With 120% Load And The Original Trace')
     
 # Generate Runtime lists and pdf
 # Runtime_data_load80_1,Runtimes_pdf_load80_1=Runtimes(Log_load80_1)
@@ -744,16 +657,16 @@ ConsumptionData,avg_Original=Consumption(Original_Log,True)
 # JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
 # Generate Submit Times lists and pdf
-# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
 # LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
 # LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
@@ -767,21 +680,21 @@ ConsumptionData,avg_Original=Consumption(Original_Log,True)
 # LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 
 # Generate Wait Times lists and pf
-# WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
-# WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
-# WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
-# WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
-# WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
-# WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
-# WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
-# WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
-# WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
-# WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
+WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
+WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
+WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
+WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
+WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
+WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
+WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
+WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
+WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
+WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
 
-# WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
-# ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
-# ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
-# ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
+WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
+ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
+ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
+ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
 
 # CrossCorellation(Runtime_data,JobSizes_data,'Original Trace Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
 # CrossCorellation(Runtime_data_load80_1,JobSizes_data_load80_1,'Realistic Trace 80% Load 1 Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
