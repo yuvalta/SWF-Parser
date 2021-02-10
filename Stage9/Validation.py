@@ -3,15 +3,15 @@ import math
 import matplotlib.pyplot as plt
 from hurst import compute_Hc
 from statsmodels.distributions.empirical_distribution import ECDF
-outputload80_1="Output2\\outputload80_1.txt"
-outputload80_2="Output2\\outputload80_2.txt"
-outputload80_3="Output2\\outputload80_3.txt"
-outputload100_1="Output2\\outputload100_1.txt"
-outputload100_2="Output2\\outputload100_2.txt"
-outputload100_3="Output2\\outputload100_3.txt"
-outputload120_1="Output2\\outputload120_1.txt"
-outputload120_2="Output2\\outputload120_2.txt"
-outputload120_3="Output2\\outputload120_3.txt"
+outputload80_1="TEST\\outputload80_1.txt"
+outputload80_2="TEST\\outputload80_2.txt"
+outputload80_3="TEST\\outputload80_3.txt"
+outputload100_1="TEST\\outputload100_1.txt"
+outputload100_2="TEST\\outputload100_2.txt"
+outputload100_3="TEST\\outputload100_3.txt"
+outputload120_1="TEST\\outputload120_1.txt"
+outputload120_2="TEST\\outputload120_2.txt"
+outputload120_3="TEST\\outputload120_3.txt"
 original_log="..\\Stage8\\NASA-iPSC-1993-3.1-cln.SWF"
 Log_load80_1=[]
 Log_load80_2=[]
@@ -734,16 +734,16 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
 # Generate Submit Times lists and pdf
-# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
 # LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
 # LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
@@ -757,21 +757,21 @@ Original_Log=AdjustThinkTimes(Original_Log)
 # LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 
 # Generate Wait Times lists and pf
-# WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
-# WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
-# WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
-# WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
-# WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
-# WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
-# WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
-# WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
-# WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
-# WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
+WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
+WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
+WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
+WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
+WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
+WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
+WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
+WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
+WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
+WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
 
-# WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
-# ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
-# ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
-# ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
+WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
+ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
+ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
+ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
 
 # CrossCorellation(Runtime_data,JobSizes_data,'Original Trace Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
 # CrossCorellation(Runtime_data_load80_1,JobSizes_data_load80_1,'Realistic Trace 80% Load 1 Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
