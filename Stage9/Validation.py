@@ -368,7 +368,6 @@ def CDFsCompare(X1,Y1,X2,Y2,X3,Y3,X,Y,load,attrib):
     ax1.set_xlabel('Time In Seconds')
     ax1.set_ylabel('Probability')
     ax1.set_xscale('log',base=2)
-    ax1.set_yscale('log',base=10)
     plt.show()
     return
 
@@ -644,6 +643,8 @@ Interarrivals_data,X,Y=Interarrivals(Original_Log)
 CDFsCompare(Xload80_1,Y_load80_1, Xload80_2,Y_load80_2, Xload80_3,Y_load80_3, X,Y, 80, 'Interarrival Times')
 CDFsCompare(Xload100_1,Y_load100_1, Xload100_2,Y_load100_2, Xload100_3,Y_load100_3, X,Y, 100, 'Interarrival Times')
 CDFsCompare(Xload120_1,Y_load120_1, Xload120_2,Y_load120_2, Xload120_3,Y_load120_3, X,Y, 120, 'Interarrival Times')
+
+# Generate Consumption lists and pdf
 # ConsumptionData_load80_1,avg_load80_1=Consumption(Log_load80_1,False)
 # ConsumptionData_load80_2,avg_load80_2=Consumption(Log_load80_2,False)
 # ConsumptionData_load80_3,avg_load80_3=Consumption(Log_load80_3,False)
@@ -732,17 +733,17 @@ CDFsCompare(Xload120_1,Y_load120_1, Xload120_2,Y_load120_2, Xload120_3,Y_load120
 # JobSizes_data_load120_3,JobSizes_pdf_load120_3=JobSizes(Log_load120_3)
 # JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
-#Generate Submit Times lists and pdf
-SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+# Generate Submit Times lists and pdf
+# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
 # LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
 # LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
