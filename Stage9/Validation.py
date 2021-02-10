@@ -89,21 +89,13 @@ def AddWaitTimes(Trace):
      i+=1    
   return Trace1
 
-def PlotSubmission(SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF,Days,Load,Log):
-    fig,(ax1,ax2,ax3,ax4)=plt.subplots(1,4)
-    ax1.set_title("Load "+str(Load)+", Log "+str(Log))
-    ax1.set_xlabel(str(Days)+"days scale")
-    ax1.set_ylabel("PDF")
-    ax1.plot(SubmissionRatePDF.keys(),SubmissionRatePDF.values())
-    ax2.set_xlabel(str(Days)+"days scale")
-    ax2.set_ylabel("CDF")
-    ax2.plot(SubmissionRateCDF.keys(),SubmissionRateCDF.values())
-    ax3.set_xlabel(str(Days)+"days scale")
+def PlotSubmission(SubmissionRate,SubmissionRateECDF,Days,Load,Log):
+    fig,(ax3)=plt.subplots(1,1)
+    ax3.set_title("Load "+str(Load)+", Log "+str(Log)+"."+"    Submission Rate: "+str("%.4f" % SubmissionRate))
+    ax3.set_xlabel("Submissions in "+str(Days)+" days")
     ax3.set_ylabel("ECDF")
     ax3.plot(SubmissionRateECDF.x,SubmissionRateECDF.y)
-    ax4.set_xlabel(str(Days)+" days scale")
-    ax4.set_ylabel("Submissions")
-    ax4.plot(SubmissionRate.keys(),SubmissionRate.values())
+  
 
 def AdjustThinkTimes(Log):
     NewLog=[]
@@ -562,36 +554,27 @@ def LocalityOfSampling(Time,attr,title):
     # ax2.set_xscale('log',base=2)    
     plt.show()
 
-def CreateSubmissionRate(Data,Rate):
+def CreateSubmissionRate(Data,Rate,InterarrivalTimes):
   PeriodOfTime=1
-  SubmissionRate=dict()
-  SubmissionRatePDF=dict()
-  SubmissionRateCDF=dict()
+  SubmissionRateDict=dict()
   SubmissionRateECDF=dict()
   for r in Data:      
       row_split_list=r.split()
       if Rate*PeriodOfTime>=int(row_split_list[1]):
-          if PeriodOfTime in SubmissionRate:
-              SubmissionRate[PeriodOfTime]+=1
+          if PeriodOfTime in SubmissionRateDict:
+              SubmissionRateDict[PeriodOfTime]+=1
           else:
-              SubmissionRate.setdefault(PeriodOfTime,1)    
+              SubmissionRateDict.setdefault(PeriodOfTime,1)    
       else:
           PeriodOfTime+=1
-          SubmissionRate.setdefault(PeriodOfTime,1)
-
-  for key in SubmissionRate:
-      SubmissionRatePDF.setdefault(key,SubmissionRate[key]/len(Data))
-  i=0
-  for key in SubmissionRate:
-      if i==0:
-       SubmissionRateCDF.setdefault(key,SubmissionRatePDF[key])
-       SubmissionRateECDF.setdefault(key,1-SubmissionRateCDF[key]) 
-      else:
-       SubmissionRateCDF.setdefault(key,SubmissionRatePDF[key]+SubmissionRateCDF[key-1])
-       SubmissionRateECDF.setdefault(key,1-SubmissionRateCDF[key]) 
-      i+=1  
-  SubmissionRateECDF=ECDF(list(SubmissionRate.values()))           
-  return SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF       
+          SubmissionRateDict.setdefault(PeriodOfTime,1)
+  avg=0
+  for v in InterarrivalTimes:
+      if v!=0:
+       avg+=(1/v)
+  avg/=len(InterarrivalTimes)    
+  SubmissionRateECDF=ECDF(list(SubmissionRateDict.values()))           
+  return avg,SubmissionRateECDF       
 
 # load all traces to lists
 with open(outputload80_1, "r") as output1:
@@ -630,15 +613,15 @@ with open(original_log, "r") as swf_file:
 
 Original_Log=AdjustThinkTimes(Original_Log)
 #Generate interarrivals lists and pdf
-# Interarrivals_data_load80_1,Xload80_1,Y_load80_1=Interarrivals(Log_load80_1)
-# Interarrivals_data_load80_2,Xload80_2,Y_load80_2=Interarrivals(Log_load80_2)
-# Interarrivals_data_load80_3,Xload80_3,Y_load80_3=Interarrivals(Log_load80_3)
-# Interarrivals_data_load100_1,Xload100_1,Y_load100_1=Interarrivals(Log_load100_1)
-# Interarrivals_data_load100_2,Xload100_2,Y_load100_2=Interarrivals(Log_load100_2)
-# Interarrivals_data_load100_3,Xload100_3,Y_load100_3=Interarrivals(Log_load100_3)
-# Interarrivals_data_load120_1,Xload120_1,Y_load120_1=Interarrivals(Log_load100_1)
-# Interarrivals_data_load120_2,Xload120_2,Y_load120_2=Interarrivals(Log_load120_2)
-# Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
+Interarrivals_data_load80_1,Xload80_1,Y_load80_1=Interarrivals(Log_load80_1)
+Interarrivals_data_load80_2,Xload80_2,Y_load80_2=Interarrivals(Log_load80_2)
+Interarrivals_data_load80_3,Xload80_3,Y_load80_3=Interarrivals(Log_load80_3)
+Interarrivals_data_load100_1,Xload100_1,Y_load100_1=Interarrivals(Log_load100_1)
+Interarrivals_data_load100_2,Xload100_2,Y_load100_2=Interarrivals(Log_load100_2)
+Interarrivals_data_load100_3,Xload100_3,Y_load100_3=Interarrivals(Log_load100_3)
+Interarrivals_data_load120_1,Xload120_1,Y_load120_1=Interarrivals(Log_load100_1)
+Interarrivals_data_load120_2,Xload120_2,Y_load120_2=Interarrivals(Log_load120_2)
+Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
 # Interarrivals_data,X,Y=Interarrivals(Original_Log)
 # CDFsCompare(Xload80_1,Y_load80_1, Xload80_2,Y_load80_2, Xload80_3,Y_load80_3, X,Y, 80, 'Interarrival Times')
 # CDFsCompare(Xload100_1,Y_load100_1, Xload100_2,Y_load100_2, Xload100_3,Y_load100_3, X,Y, 100, 'Interarrival Times')
@@ -848,31 +831,30 @@ ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data
 # WeeklyCyclesO=WeeklyCycles(Original_Log)
 # ShowWeeklyCyclesGraph(WeeklyCyclesLoad80_1, WeeklyCyclesLoad80_2, WeeklyCyclesLoad80_3, WeeklyCyclesLoad100_1, WeeklyCyclesLoad100_2, WeeklyCyclesLoad100_3, WeeklyCyclesLoad120_1, WeeklyCyclesLoad120_2, WeeklyCyclesLoad120_3, WeeklyCyclesO)
 
-# Days=1
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,1)
+Days=2
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60,Interarrivals_data_load100_1)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,2)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60,Interarrivals_data_load100_2)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,100,3)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60,Interarrivals_data_load100_3)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,3)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,1)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60,Interarrivals_data_load120_1)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,2)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60,Interarrivals_data_load120_2)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,80,3)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60,Interarrivals_data_load120_3)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,3)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,1)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60,Interarrivals_data_load80_1)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,1)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,2)
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60,Interarrivals_data_load80_2)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,2)
 
-# SubmissionRate,SubmissionRatePDF,SubmissionRateCDF,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60)
-# PlotSubmission(SubmissionRate, SubmissionRatePDF, SubmissionRateCDF, SubmissionRateECDF, Days,120,3)
-
+SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60,Interarrivals_data_load80_3)
+PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,3)
