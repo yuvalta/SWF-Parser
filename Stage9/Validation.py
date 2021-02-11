@@ -3,15 +3,16 @@ import math
 import matplotlib.pyplot as plt
 from hurst import compute_Hc
 from statsmodels.distributions.empirical_distribution import ECDF
-outputload80_1="TEST\\outputload80_1.txt"
-outputload80_2="TEST\\outputload80_2.txt"
-outputload80_3="TEST\\outputload80_3.txt"
-outputload100_1="TEST\\outputload100_1.txt"
-outputload100_2="TEST\\outputload100_2.txt"
-outputload100_3="TEST\\outputload100_3.txt"
-outputload120_1="TEST\\outputload120_1.txt"
-outputload120_2="TEST\\outputload120_2.txt"
-outputload120_3="TEST\\outputload120_3.txt"
+import scipy.io
+outputload80_1="Output2\\outputload80_1.txt"
+outputload80_2="Output2\\outputload80_2.txt"
+outputload80_3="Output2\\outputload80_3.txt"
+outputload100_1="Output2\\outputload100_1.txt"
+outputload100_2="Output2\\outputload100_2.txt"
+outputload100_3="Output2\\outputload100_3.txt"
+outputload120_1="Output2\\outputload120_1.txt"
+outputload120_2="Output2\\outputload120_2.txt"
+outputload120_3="Output2\\outputload120_3.txt"
 original_log="..\\Stage8\\NASA-iPSC-1993-3.1-cln.SWF"
 Log_load80_1=[]
 Log_load80_2=[]
@@ -95,7 +96,6 @@ def PlotSubmission(SubmissionRate,SubmissionRateECDF,Days,Load,Log):
     ax3.set_xlabel("Submissions in "+str(Days)+" days")
     ax3.set_ylabel("ECDF")
     ax3.plot(SubmissionRateECDF.x,SubmissionRateECDF.y)
-  
 
 def AdjustThinkTimes(Log):
     NewLog=[]
@@ -121,6 +121,68 @@ def AdjustThinkTimes(Log):
             NewLog.append(r)  
     return NewLog
 
+def AdjustThinkTimes2(Log):
+    NewLog=[]
+    Users=dict()
+    for job in Log:
+        job_splitted=job.split()
+        UserID=job_splitted[11]
+        if UserID in Users:
+            Users[UserID].append(job) 
+        else:
+            Users.setdefault(UserID,[]).append(job)
+    for key in Users:
+        end_time=0
+        for i in range(len(Users[key])):
+            jobsplitted=Users[key][i].split()
+            sub_time=int(jobsplitted[1])
+            think=sub_time-end_time
+            end_time=sub_time+int(jobsplitted[2])+int(jobsplitted[1])
+            jobsplitted[17]=str(think)
+            r=""    
+            for v in jobsplitted:
+                r+=(v+"   ")
+            NewLog.append(r)  
+    return NewLog
+
+def mergeSort(arr):
+    if len(arr) > 1:
+         # Finding the mid of the array
+        mid = len(arr)//2
+        # Dividing the array elements
+        L = arr[:mid]
+ 
+        # into 2 halves
+        R = arr[mid:]
+ 
+        # Sorting the first half
+        mergeSort(L)
+ 
+        # Sorting the second half
+        mergeSort(R)
+ 
+        i = j = k = 0
+        # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if int(L[i].split()[0]) < int(R[j].split()[0]):
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+ 
+        # Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+ 
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
 def Interarrivals(Log):
     Prev_submit=0
     n=0
@@ -131,6 +193,8 @@ def Interarrivals(Log):
         Submit_time=int(Job.split()[1])
         interarrival_time=Submit_time-Prev_submit
         Interarrivals_data.append(interarrival_time)
+        if interarrival_time<0:
+            print('heheheh')
         if interarrival_time in Interarrivals_counter:
             Interarrivals_counter[interarrival_time]+=1
         else:
@@ -584,33 +648,33 @@ def CreateSubmissionRate(Data,Rate,InterarrivalTimes):
   return avg,SubmissionRateECDF       
 
 # load all traces to lists
-with open(outputload80_1, "r") as output1:
-    for row in output1.readlines():
-        Log_load80_1.append(row)
-with open(outputload80_2, "r") as output1:
-    for row in output1.readlines():
-        Log_load80_2.append(row)
-with open(outputload80_3, "r") as output1:
-    for row in output1.readlines():
-        Log_load80_3.append(row)
-with open(outputload100_1, "r") as output1:
-    for row in output1.readlines():
-        Log_load100_1.append(row)
-with open(outputload100_2, "r") as output1:
-    for row in output1.readlines():
-        Log_load100_2.append(row)
-with open(outputload100_3, "r") as output1:
-    for row in output1.readlines():
-        Log_load100_3.append(row)
-with open(outputload120_1, "r") as output1:
-    for row in output1.readlines():
-        Log_load120_1.append(row)
-with open(outputload120_2, "r") as output1:
-    for row in output1.readlines():
-        Log_load120_2.append(row)
-with open(outputload120_3, "r") as output1:
-    for row in output1.readlines():
-        Log_load120_3.append(row)
+# with open(outputload80_1, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load80_1.append(row)
+# with open(outputload80_2, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load80_2.append(row)
+# with open(outputload80_3, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load80_3.append(row)
+# with open(outputload100_1, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load100_1.append(row)
+# with open(outputload100_2, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load100_2.append(row)
+# with open(outputload100_3, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load100_3.append(row)
+# with open(outputload120_1, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load120_1.append(row)
+# with open(outputload120_2, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load120_2.append(row)
+# with open(outputload120_3, "r") as output1:
+#     for row in output1.readlines():
+#         Log_load120_3.append(row)
 with open(original_log, "r") as swf_file:
     for row in swf_file.readlines():
         row_split_list = row.split()
@@ -619,17 +683,22 @@ with open(original_log, "r") as swf_file:
         Original_Log.append(row)
 
 Original_Log=AdjustThinkTimes(Original_Log)
+mergeSort(Original_Log)
 #Generate interarrivals lists and pdf
-Interarrivals_data_load80_1,Xload80_1,Y_load80_1=Interarrivals(Log_load80_1)
-Interarrivals_data_load80_2,Xload80_2,Y_load80_2=Interarrivals(Log_load80_2)
-Interarrivals_data_load80_3,Xload80_3,Y_load80_3=Interarrivals(Log_load80_3)
-Interarrivals_data_load100_1,Xload100_1,Y_load100_1=Interarrivals(Log_load100_1)
-Interarrivals_data_load100_2,Xload100_2,Y_load100_2=Interarrivals(Log_load100_2)
-Interarrivals_data_load100_3,Xload100_3,Y_load100_3=Interarrivals(Log_load100_3)
-Interarrivals_data_load120_1,Xload120_1,Y_load120_1=Interarrivals(Log_load100_1)
-Interarrivals_data_load120_2,Xload120_2,Y_load120_2=Interarrivals(Log_load120_2)
-Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
-# Interarrivals_data,X,Y=Interarrivals(Original_Log)
+# Interarrivals_data_load80_1,Xload80_1,Y_load80_1=Interarrivals(Log_load80_1)
+# Interarrivals_data_load80_2,Xload80_2,Y_load80_2=Interarrivals(Log_load80_2)
+# Interarrivals_data_load80_3,Xload80_3,Y_load80_3=Interarrivals(Log_load80_3)
+# Interarrivals_data_load100_1,Xload100_1,Y_load100_1=Interarrivals(Log_load100_1)
+# Interarrivals_data_load100_2,Xload100_2,Y_load100_2=Interarrivals(Log_load100_2)
+# Interarrivals_data_load100_3,Xload100_3,Y_load100_3=Interarrivals(Log_load100_3)
+# Interarrivals_data_load120_1,Xload120_1,Y_load120_1=Interarrivals(Log_load100_1)
+# Interarrivals_data_load120_2,Xload120_2,Y_load120_2=Interarrivals(Log_load120_2)
+# Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
+Interarrivals_data,X,Y=Interarrivals(Original_Log)
+# InterarrivalsDict=dict()
+# InterarrivalsDict.setdefault('Time',X)
+# InterarrivalsDict.setdefault('Probability',Y)
+# scipy.io.savemat('Interarrivals.mat',InterarrivalsDict)
 # CDFsCompare(Xload80_1,Y_load80_1, Xload80_2,Y_load80_2, Xload80_3,Y_load80_3, X,Y, 80, 'Interarrival Times')
 # CDFsCompare(Xload100_1,Y_load100_1, Xload100_2,Y_load100_2, Xload100_3,Y_load100_3, X,Y, 100, 'Interarrival Times')
 # CDFsCompare(Xload120_1,Y_load120_1, Xload120_2,Y_load120_2, Xload120_3,Y_load120_3, X,Y, 120, 'Interarrival Times')
@@ -659,7 +728,14 @@ Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
 # Runtime_data_load120_1,Xload120_1,Y_load120_1=Runtimes(Log_load120_1)
 # Runtime_data_load120_2,Xload120_2,Y_load120_2=Runtimes(Log_load120_2)
 # Runtime_data_load120_3,Xload120_3,Y_load120_3=Runtimes(Log_load120_3)
-# Runtime_data,X,Y=Runtimes(Original_Log)
+Runtime_data,X,Y=Runtimes(Original_Log)
+# RuntimesDict=dict()
+# RuntimesDict.setdefault('Time',X)
+# RuntimesDict.setdefault('Probability',Y)
+Dicti=dict()
+Dicti.setdefault('Interarrival',Interarrivals_data)
+Dicti.setdefault('Runtime',Runtime_data)
+scipy.io.savemat('Data.mat',Dicti)
 # CDFsCompare(Xload80_1,Y_load80_1, Xload80_2,Y_load80_2, Xload80_3,Y_load80_3, X,Y, 80, 'Runtimes')
 # CDFsCompare(Xload100_1,Y_load100_1, Xload100_2,Y_load100_2, Xload100_3,Y_load100_3, X,Y, 100, 'Runtimes')
 # CDFsCompare(Xload120_1,Y_load120_1, Xload120_2,Y_load120_2, Xload120_3,Y_load120_3, X,Y, 120, 'Runtimes')
@@ -724,16 +800,16 @@ Interarrivals_data_load120_3,Xload120_3,Y_load120_3=Interarrivals(Log_load120_3)
 # JobSizes_data,JobSizes_pdf=JobSizes(Original_Log)
 
 # Generate Submit Times lists and pdf
-SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
-SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
-SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
-SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
-SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
-SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
-SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
-SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
-SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
-SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
+# SubmitTimes_data_load80_1,SubmitTimes_pdf_load80_1=SubmitTimes(Log_load80_1)
+# SubmitTimes_data_load80_2,SubmitTimes_pdf_load80_2=SubmitTimes(Log_load80_2)
+# SubmitTimes_data_load80_3,SubmitTimes_pdf_load80_3=SubmitTimes(Log_load80_3)
+# SubmitTimes_data_load100_1,SubmitTimes_pdf_load100_1=SubmitTimes(Log_load100_1)
+# SubmitTimes_data_load100_2,SubmitTimes_pdf_load100_2=SubmitTimes(Log_load100_2)
+# SubmitTimes_data_load100_3,SubmitTimes_pdf_load100_3=SubmitTimes(Log_load100_3)
+# SubmitTimes_data_load120_1,SubmitTimes_pdf_load120_1=SubmitTimes(Log_load120_1)
+# SubmitTimes_data_load120_2,SubmitTimes_pdf_load120_2=SubmitTimes(Log_load120_2)
+# SubmitTimes_data_load120_3,SubmitTimes_pdf_load120_3=SubmitTimes(Log_load120_3)
+# SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 
 # LocalityOfSampling(SubmitTimes_data_load80_1, JobSizes_data_load80_1, "80% load first trace")
 # LocalityOfSampling(SubmitTimes_data_load80_2, JobSizes_data_load80_2, "80% load second trace")
@@ -747,21 +823,21 @@ SubmitTimes_data,SubmitTimes_pdf=SubmitTimes(Original_Log)
 # LocalityOfSampling(SubmitTimes_data, JobSizes_data, "the original trace")
 
 # Generate Wait Times lists and pf
-WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
-WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
-WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
-WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
-WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
-WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
-WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
-WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
-WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
-WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
+# WaitTimes_data_load80_1,WaitTimes_pdf_load80_1=WaitTimes(Log_load80_1)
+# WaitTimes_data_load80_2,WaitTimes_pdf_load80_2=WaitTimes(Log_load80_2)
+# WaitTimes_data_load80_3,WaitTimes_pdf_load80_3=WaitTimes(Log_load80_3)
+# WaitTimes_data_load100_1,WaitTimes_pdf_load100_1=WaitTimes(Log_load100_1)
+# WaitTimes_data_load100_2,WaitTimes_pdf_load100_2=WaitTimes(Log_load100_2)
+# WaitTimes_data_load100_3,WaitTimes_pdf_load100_3=WaitTimes(Log_load100_3)
+# WaitTimes_data_load120_1,WaitTimes_pdf_load120_1=WaitTimes(Log_load120_1)
+# WaitTimes_data_load120_2,WaitTimes_pdf_load120_2=WaitTimes(Log_load120_2)
+# WaitTimes_data_load120_3,WaitTimes_pdf_load120_3=WaitTimes(Log_load120_3)
+# WaitTimes_data,WaitTimes_pdf=SubmitTimes(Original_Log)
 
-WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
-ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
-ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
-ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
+# WaitTimesECDF(WaitTimes_data_load80_1, WaitTimes_data_load80_2, WaitTimes_data_load80_3,WaitTimes_data_load100_1, WaitTimes_data_load100_2, WaitTimes_data_load100_3,WaitTimes_data_load120_1, WaitTimes_data_load120_2, WaitTimes_data_load120_3)
+# ScatterPlot(WaitTimes_data_load80_1, SubmitTimes_data_load80_1, WaitTimes_data_load80_2, SubmitTimes_data_load80_2, WaitTimes_data_load80_3, SubmitTimes_data_load80_3, 80)
+# ScatterPlot(WaitTimes_data_load100_1, SubmitTimes_data_load100_1, WaitTimes_data_load100_2, SubmitTimes_data_load100_2, WaitTimes_data_load100_3, SubmitTimes_data_load100_3, 100)
+# ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data_load120_2, SubmitTimes_data_load120_2, WaitTimes_data_load120_3, SubmitTimes_data_load120_3, 120)
 
 # CrossCorellation(Runtime_data,JobSizes_data,'Original Trace Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
 # CrossCorellation(Runtime_data_load80_1,JobSizes_data_load80_1,'Realistic Trace 80% Load 1 Cross-Correlation Runtimes & Job Sizes','Runtimes','JobSizes')
@@ -838,30 +914,30 @@ ScatterPlot(WaitTimes_data_load120_1, SubmitTimes_data_load120_1, WaitTimes_data
 # WeeklyCyclesO=WeeklyCycles(Original_Log)
 # ShowWeeklyCyclesGraph(WeeklyCyclesLoad80_1, WeeklyCyclesLoad80_2, WeeklyCyclesLoad80_3, WeeklyCyclesLoad100_1, WeeklyCyclesLoad100_2, WeeklyCyclesLoad100_3, WeeklyCyclesLoad120_1, WeeklyCyclesLoad120_2, WeeklyCyclesLoad120_3, WeeklyCyclesO)
 
-Days=2
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60,Interarrivals_data_load100_1)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,1)
+# Days=2
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_1, Days*24*60*60,Interarrivals_data_load100_1)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,1)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60,Interarrivals_data_load100_2)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,2)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_2, Days*24*60*60,Interarrivals_data_load100_2)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,2)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60,Interarrivals_data_load100_3)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,3)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load100_3, Days*24*60*60,Interarrivals_data_load100_3)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,100,3)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60,Interarrivals_data_load120_1)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,1)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_1, Days*24*60*60,Interarrivals_data_load120_1)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,1)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60,Interarrivals_data_load120_2)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,2)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_2, Days*24*60*60,Interarrivals_data_load120_2)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,2)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60,Interarrivals_data_load120_3)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,3)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load120_3, Days*24*60*60,Interarrivals_data_load120_3)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,120,3)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60,Interarrivals_data_load80_1)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,1)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_1, Days*24*60*60,Interarrivals_data_load80_1)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,1)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60,Interarrivals_data_load80_2)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,2)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_2, Days*24*60*60,Interarrivals_data_load80_2)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,2)
 
-SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60,Interarrivals_data_load80_3)
-PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,3)
+# SubmissionRate,SubmissionRateECDF  =CreateSubmissionRate(Log_load80_3, Days*24*60*60,Interarrivals_data_load80_3)
+# PlotSubmission(SubmissionRate,SubmissionRateECDF, Days,80,3)
