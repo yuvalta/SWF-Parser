@@ -285,20 +285,18 @@ def SubmitTimes(Log):
     return SubmitTime_data,SubmitTimes_pdf  
 
 def WaitTimes(Log):
-    n=0
     WaitTime_data=[]
     WaitTimes_counter=dict()
     WaitTimes_pdf=dict()
     for Job in Log:
         WaitTime=int(Job.split()[2])
         WaitTime_data.append(WaitTime)
-    if WaitTime in WaitTimes_counter:
-        WaitTimes_counter[WaitTime]+=1
-    else:
-        WaitTimes_counter.setdefault(WaitTime,1)
-    n+=1
+        if WaitTime in WaitTimes_counter:
+            WaitTimes_counter[WaitTime]+=1
+        else:
+            WaitTimes_counter.setdefault(WaitTime,1)
     for time in WaitTimes_counter:
-        WaitTimes_pdf.setdefault(time,WaitTimes_counter[time]/n)
+        WaitTimes_pdf.setdefault(time,WaitTimes_counter[time]/len(WaitTime_data))
     return WaitTime_data,WaitTimes_pdf 
 
 def SelfSimilarity(s,lab,x,y):
@@ -399,8 +397,17 @@ def ScatterPlot(X1,Y1,X2,Y2,X3,Y3,load):
     ax3.set_xlabel('Wait Times')
     ax3.set_ylabel('Submit Times')
     ax1.scatter(X1,Y1)
+    CC=np.corrcoef(X1,Y1)[1,0]
+    CC="{:.3f}".format(CC)
+    ax1.text(max(X1)-max(X1)/5,0,'CC= '+str(CC))
     ax2.scatter(X2,Y2)
+    CC=np.corrcoef(X2,Y2)[1,0]
+    CC="{:.3f}".format(CC)
+    ax2.text(max(X2)-max(X2)/5,0,'CC= '+str(CC))
     ax3.scatter(X3,Y3)
+    CC=np.corrcoef(X3,Y3)[1,0]
+    CC="{:.3f}".format(CC)
+    ax3.text(max(X3)-max(X3)/5,0,'CC= '+str(CC))
     plt.show()
     return
 
